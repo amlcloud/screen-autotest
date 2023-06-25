@@ -11,7 +11,8 @@ module.exports = defineConfig({
     includeShadowDom:true,
     pageLoadTimeout:60000,
     video:false,
-    trashAssetsBeforeRuns:true
+    trashAssetsBeforeRuns:true,
+    responseTimeout: 60000
   },
  
 });

@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/amlcloud/screen-autotest#readme",
   "devDependencies": {
-    "cypress": "^12.15.0"
+    "cypress": "^12.15.0",
+    "cypress-xpath": "^2.0.1"
   }
 }
