@@ -12,7 +12,11 @@ module.exports = defineConfig({
     pageLoadTimeout:60000,
     video:false,
     trashAssetsBeforeRuns:true,
-    responseTimeout: 60000
+    responseTimeout: 60000,
+    experimentalInteractiveRunEvents: true
   },
+  env: {
+    CYPRESS_FLUTTER_HTML_RENDERER: "on"
+  }
  
 });
