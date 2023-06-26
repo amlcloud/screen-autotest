@@ -23,3 +23,15 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('findByFltSemanticsAriaLabel', function (locator) {
+    return cy.get('flt-semantics[aria-label="' + locator + '"]');
+  });
+  
+  Cypress.Commands.add('findFltSpanWithText', (text) => {
+    return cy.get('flt-span')
+      .filter(($element) => {
+        return $element.text().includes(text);
+      });
+  });
+  
