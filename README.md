@@ -37,17 +37,20 @@ Add the below line of code
   Navigate to your cypress configuration file, typically the name will cypress.config.js
   Add the below line of code
 
-  # //cypress.config.js
-  const { defineConfig } = require("cypress");
-  module.exports = defineConfig({
-    reporter: 'cypress-mochawesome-reporter',
-    e2e: {
-      setupNodeEvents(on, config) {
-        require('cypress-mochawesome-reporter/plugin')(on);
+  # cypress.config.js
+  ```
+    const { defineConfig } = require("cypress");
+    module.exports = defineConfig({
+      reporter: 'cypress-mochawesome-reporter',
+      e2e: {
+        setupNodeEvents(on, config) {
+          require('cypress-mochawesome-reporter/plugin')(on);
 
+        },
       },
-    },
-  });
+    });
+    
+  ```
 
 ## Step 10: Configure Support e2e.js
 Navigate to cypress/support/e2e.js, and add the import statement using the command below.
