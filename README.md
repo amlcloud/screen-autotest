@@ -1,7 +1,7 @@
 ## Step 1: Prerequisites
-Make sure you have Node.js installed on your machine. Cypress requires Node.js version 14 or above. You can check your Node.js version by running the command 
+Make sure you have Node.js installed on your machine. Cypress requires Node.js version 14 or above. You can check your Node.js version by running the command in your terminal
 ```
-node -v in your terminal.
+node -v
 ```
 ## Step 2: Create a new project
 Create a new directory for your project and navigate to it in your terminal.
