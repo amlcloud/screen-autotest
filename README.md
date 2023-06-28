@@ -36,7 +36,8 @@ Add the below line of code
 ## Step 9: Step 2: Configure Cypress Reporter
   Navigate to your cypress configuration file, typically the name will cypress.config.js
   Add the below line of code
-  //cypress.config.js
+
+  # //cypress.config.js
   const { defineConfig } = require("cypress");
   module.exports = defineConfig({
     reporter: 'cypress-mochawesome-reporter',
