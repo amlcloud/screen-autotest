@@ -66,3 +66,8 @@ import 'cypress-mochawesome-reporter/register';
 ```
 npx cypress run --browser chrome --headed --e2e
 ```
+
+## Ste 8 : To execute the specific file , run the below command
+```
+npx cypress run  --spec <specific file path> --browser chrome --headed --e2e
+```
