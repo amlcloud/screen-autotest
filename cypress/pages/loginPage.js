@@ -31,7 +31,7 @@ export class LoginNewPage extends BrowserUtils {
     }
 
     navigateToAMLCloud() {
-        cy.visit("https://screen.amlcloud.io/#/login", { timeout: 30000 })
+        cy.visit(Cypress.config('baseUrl'))
         this.waitForTimeOut(15000)
     }
     
@@ -53,8 +53,8 @@ export class LoginNewPage extends BrowserUtils {
         this.forceClickOnElement(this.sematicsPlaceholder)
     }
 
+     // verify the Login page Title
     verifyLoginPageExist() {
-         // verify the Login page Title
         this.waitForTimeOut(10000)
         cy.get(this.loginButton).should('exist')
     }
