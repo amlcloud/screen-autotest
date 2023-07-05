@@ -16,7 +16,7 @@ describe('Flutter application Tests', () => {
         cy.get('flt-semantics[aria-label="Search"]').click()
         cy.wait(10000);
         cy.get('flt-semantics[aria-label*="AML"]').click();
-    }) 
+        })
     it('Verify the error message if search item characters less than five characters', ()=>{
         cy.visit("https://screen.amlcloud.io/#/search")
         // negative scenario----->
