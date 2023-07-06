@@ -17,7 +17,7 @@ export class BrowserUtils {
 
     typeInputText(locator, locatorValue, timeOut) {
         timeOut = timeOut!=undefined? timeOut: 0
-        cy.get(locator).type(locatorValue) 
+        cy.get(locator).type(locatorValue,  { delay: timeOut}) 
     }
 
     waitUntilElementIsDisplayed(locator) {
@@ -26,4 +26,36 @@ export class BrowserUtils {
     waitForTimeOut(timeOut) {
         cy.wait(timeOut)
     }
+
+    getElementtext(element){
+        return cy.get(element).invoke('text')
+    }
+
+    assertEqual(actualText, expectedText){
+        actualText.should('eq', expectedText)
+    }
+
+    isElementDisabled(element, message = '') {
+        // Assert that the element is disabled
+        // cy.get(element).should('be.disabled')
+        // cy.get(element).should('have.attr', 'disabled');
+
+    }
+
+    isElementVisible(element, message='') {
+        cy.get(element).should('be.visible', message);
+    }
+
+    isElementExist(element) {
+        cy.get(element).should('exist', 'Element is not existed')
+    }
+
+    waitForDocumentExist() {
+        cy.document().should('exist'); 
+    }
+
+    navigateToPage(tabName) {
+        cy.visit(`https://screen.amlcloud.io/#/${tabName}`)
+    }
+
 }
