@@ -44,4 +44,14 @@ describe('AML Login Tests', () => {
         searchPage.validateErrorMessage('Please input 5 or more characters.')
         searchPage.isSearchButtonIsDisabled()
     })
+
+    it('List tab functionalisty', () =>{
+        searchPage.navigateToPage('lists')
+        searchPage.waitForDocumentExist()
+        searchPage.waitForTimeOut(10000)
+        loginPage.clickOnSematicsPlaceHolder()
+        searchPage.waitForTimeOut(15000)
+        searchPage.clickOnSearchedItem(searchData['listItem'])
+    })
+    
 })
