@@ -71,3 +71,7 @@ npx cypress run --browser chrome --headed --e2e
 ```
 npx cypress run  --spec <specific file path> --browser chrome --headed --e2e
 ```
+Example:-
+```
+npx cypress run  --spec cypress/e2e/tests/SearchTestCases.cy.js --browser chrome --headed --e2e
+```
