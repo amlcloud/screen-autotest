@@ -24,14 +24,24 @@ describe('AML Login Tests', () => {
 
 
     it('Enter the valid search item and validates validate entered search item details',  ()=>{
+        const searchItem = searchData['searchItem']
         // verify the Sanction Search is available
         searchPage.waitForDocumentExist()
         searchPage.isSanctionSearchExist()
         // entering the valid input
-        searchPage.enterTextInSearchField(searchData['searchItem'])
+        searchPage.enterTextInSearchField(searchItem)
         searchPage.clickOnSearchButton()
-        searchPage.clickOnSearchedItem(searchData['searchItem'])
-        searchPage.waitForDocumentExist()
+        searchPage.clickOnSearchedItem(searchItem)
+        searchPage.waitForDocumentExist() 
+        cy.pause()
+        // validating the search target item
+        const targetSearchItem = searchPage.getSearchedTargetItem(searchItem)
+        console.log("jhsdhfdjfd", targetSearchItem)
+        searchPage.assertEqual(targetSearchItem, searchItem)
+       
+        // validate the matches information
+        // click on target item
+        // validate the profile information
         })
 
     it('Validate the search button is disabled when validation message is triggered', ()=>{

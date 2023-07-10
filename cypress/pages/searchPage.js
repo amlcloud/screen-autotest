@@ -11,6 +11,9 @@ export class SearchPage extends BrowserUtils {
         this. searchedItem = function(name) {
             return `flt-semantics[aria-label*=${name}]`
         }
+        this.searchedTargetItem = function() {
+            return `flt-semantics[aria-label*="Searched Target"]`
+        }
        }
 
     isSanctionSearchExist() {
@@ -39,6 +42,10 @@ export class SearchPage extends BrowserUtils {
 
     isSearchButtonIsDisabled() {
         this.isElementDisabled(this.searchButton, 'SearchButton is enabled')
+    }
+
+    getSearchedTargetItem(name) {
+       return this.getElementtext(this.searchedTargetItem(name))
     }
 
 }
