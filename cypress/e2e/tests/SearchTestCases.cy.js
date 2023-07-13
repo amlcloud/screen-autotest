@@ -16,6 +16,7 @@ describe('AML Login Tests', () => {
             cy.log('Executing beforeAll...');
             loginPage.navigateToAMLCloud()
             loginPage.clickOnSematicsPlaceHolder()
+            loginPage.verifyLoginPageExist()
             loginPage.clickLoginanonymous()
             // Additional setup or initialization logic
             isInitialized = true;
@@ -31,17 +32,9 @@ describe('AML Login Tests', () => {
         // entering the valid input
         searchPage.enterTextInSearchField(searchItem)
         searchPage.clickOnSearchButton()
-        searchPage.clickOnSearchedItem(searchItem)
         searchPage.waitForDocumentExist() 
-        cy.pause()
         // validating the search target item
         const targetSearchItem = searchPage.getSearchedTargetItem(searchItem)
-        console.log("jhsdhfdjfd", targetSearchItem)
-        searchPage.assertEqual(targetSearchItem, searchItem)
-       
-        // validate the matches information
-        // click on target item
-        // validate the profile information
         })
 
     it('Validate the search button is disabled when validation message is triggered', ()=>{

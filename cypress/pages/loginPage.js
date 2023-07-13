@@ -61,6 +61,7 @@ export class LoginNewPage extends BrowserUtils {
   
     clickLoginanonymous() {
         this.clickLogInAnonymous();
+        this.waitForTimeOut(10000)
     }
   }
   
