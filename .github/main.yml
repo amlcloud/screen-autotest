@@ -1,0 +1,11 @@
+name: Run cypress Tests
+on:
+  push:
+    branches:
+    - validationSearchResults
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
