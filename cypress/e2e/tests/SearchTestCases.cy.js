@@ -16,6 +16,7 @@ describe('AML Login Tests', () => {
             cy.log('Executing beforeAll...');
             loginPage.navigateToAMLCloud()
             loginPage.clickOnSematicsPlaceHolder()
+            loginPage.verifyLoginPageExist()
             loginPage.clickLoginanonymous()
             // Additional setup or initialization logic
             isInitialized = true;
@@ -24,14 +25,16 @@ describe('AML Login Tests', () => {
 
 
     it('Enter the valid search item and validates validate entered search item details',  ()=>{
+        const searchItem = searchData['searchItem']
         // verify the Sanction Search is available
         searchPage.waitForDocumentExist()
         searchPage.isSanctionSearchExist()
         // entering the valid input
-        searchPage.enterTextInSearchField(searchData['searchItem'])
+        searchPage.enterTextInSearchField(searchItem)
         searchPage.clickOnSearchButton()
-        searchPage.clickOnSearchedItem(searchData['searchItem'])
-        searchPage.waitForDocumentExist()
+        searchPage.waitForDocumentExist() 
+        // validating the search target item
+        const targetSearchItem = searchPage.getSearchedTargetItem(searchItem)
         })
 
     it('Validate the search button is disabled when validation message is triggered', ()=>{

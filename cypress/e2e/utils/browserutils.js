@@ -35,6 +35,10 @@ export class BrowserUtils {
         actualText.should('eq', expectedText)
     }
 
+    assertInclude(actualText, expectedSubString) {
+        expect(actualText).to.include(expectedSubString);
+    }
+
     isElementDisabled(element, message = '') {
         // Assert that the element is disabled
         // cy.get(element).should('be.disabled')
@@ -56,6 +60,14 @@ export class BrowserUtils {
 
     navigateToPage(tabName) {
         cy.visit(`https://screen.amlcloud.io/#/${tabName}`)
+    }
+
+    getAtrributeValue(element, attributeValue) {
+        let actualValue = null
+        cy.get(element).invoke('attr', attributeValue).then((value) => {
+            actualValue = value
+          });
+          return actualValue
     }
 
 }

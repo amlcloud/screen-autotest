@@ -3,22 +3,25 @@ import { BrowserUtils } from "../e2e/utils/browserutils";
 
 export class SearchPage extends BrowserUtils {
     constructor() {
-        super(); 
-        this.searchInputField='flt-semantics input'
-        this.searchButton='flt-semantics[aria-label="Search"]'
+        super();
+        this.searchInputField = 'flt-semantics input'
+        this.searchButton = 'flt-semantics[aria-label="Search"]'
         this.errormessage = '#ftl-announcement-assertive'
         this.sanctionSearchLabel = '[aria-label="Sanction Search"]'
-        this. searchedItem = function(name) {
-            return `flt-semantics[aria-label*=${name}]`
+        this.searchedItem = function (name) {
+            return `flt-semantics[aria-label*="${name}"]`
         }
-       }
+        this.searchedTargetItem = function () {
+            return `flt-semantics[aria-label*="Searched Target"]`
+        }
+    }
 
     isSanctionSearchExist() {
-         this.isElementExist(this.sanctionSearchLabel)
+        this.isElementExist(this.sanctionSearchLabel)
 
     }
     enterTextInSearchField(value) {
-        this.typeInputText(this.searchInputField, value) 
+        this.typeInputText(this.searchInputField, value)
     }
 
     clickOnSearchButton() {
@@ -41,4 +44,9 @@ export class SearchPage extends BrowserUtils {
         this.isElementDisabled(this.searchButton, 'SearchButton is enabled')
     }
 
+    getSearchedTargetItem(name) {
+        let searchedItem = this.getAtrributeValue(this.searchedItem("Searched Target:"), 'aria-label')
+        cy.log("searched item", searchedItem)
+        return searchedItem
+    }
 }
