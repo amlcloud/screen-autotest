@@ -37,20 +37,38 @@ jobs:
       #     status: ${{ steps.test-results.outputs.status }}
       #     fail-comment: "Cypress tests failed. Please fix the issues before merging."
 
-      - name: Set pull request status
-        run: |
-          PR_NUMBER="${{ github.event.pull_request.number }}"
-          STATUS="${{ steps.test-results.outputs.status }}"
-          ACCESS_TOKEN="${{ secrets.GITHUB_TOKEN }}"
-          REPO_NAME="${{ github.repository }}"
+      # - name: Set pull request status
+      #   run: |
+      #     PR_NUMBER="${{ github.event.pull_request.number }}"
+      #     STATUS="${{ steps.test-results.outputs.status }}"
+      #     ACCESS_TOKEN="${{ secrets.GITHUB_TOKEN }}"
+      #     REPO_NAME="${{ github.repository }}"
 
-          API_URL="https://api.github.com/repos/$REPO_NAME/check-runs"
-          API_HEADERS="Accept: application/vnd.github.antiope-preview+json"
-          DATA="{\"name\": \"Cypress Tests\", \"head_sha\": \"${{ github.sha }}\", \"status\": \"$STATUS\", \"output\": {\"title\": \"Cypress Tests\", \"summary\": \"Cypress tests $STATUS\"}}"
+      #     API_URL="https://api.github.com/repos/$REPO_NAME/check-runs"
+      #     API_HEADERS="Accept: application/vnd.github.antiope-preview+json"
+      #     DATA="{\"name\": \"Cypress Tests\", \"head_sha\": \"${{ github.sha }}\", \"status\": \"$STATUS\", \"output\": {\"title\": \"Cypress Tests\", \"summary\": \"Cypress tests $STATUS\"}}"
 
-          curl -s -X POST $API_URL/$API_ENDPOINT \
-            -H "Authorization: Bearer $ACCESS_TOKEN" \
-            -H "$API_HEADERS" \
-            -d "$DATA"
+      #     curl -s -X POST $API_URL/$API_ENDPOINT \
+      #       -H "Authorization: Bearer $ACCESS_TOKEN" \
+      #       -H "$API_HEADERS" \
+      #       -d "$DATA"
 
-          exit 0
+      #     exit 0
+       - name: Check if tests passed
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { data: checks } = await github.checks.listForRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: context.payload.pull_request.head.sha,
+              filter: 'latest'
+            });
+            
+            const hasFailedChecks = checks.check_runs.some(check => check.conclusion === 'failure' || check.conclusion === 'timed_out');
+            if (hasFailedChecks) {
+              console.log('::error::Merge blocked - There are failing checks.');
+              core.setFailed('There are failing checks, merge blocked.');
+              process.exit(1);
+            }

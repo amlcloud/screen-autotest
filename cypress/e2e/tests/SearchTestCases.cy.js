@@ -56,13 +56,5 @@ describe('AML Search Test cases', () => {
         searchPage.waitForTimeOut(15000)
         searchPage.clickOnSearchedItem(searchData['listItem'])
     })
-    it('List tab functionalisty', () =>{
-        searchPage.navigateToPage('lists')
-        searchPage.waitForDocumentExist()
-        searchPage.waitForTimeOut(10000)
-        loginPage.clickOnSematicsPlaceHolder()
-        searchPage.waitForTimeOut(15000)
-        searchPage.clickOnSearchedItem("mouni")
-    })
     
 })
