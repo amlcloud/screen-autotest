@@ -30,9 +30,27 @@ jobs:
         id: test-results
         run: echo "::set-output name=status::$(npx cypress run --browser chrome --ci | grep -oP 'All specs passed!|\d+ failing')"
 
+      # - name: Set pull request status
+      #   uses: screen-autotest/action-create-pull-request-status@v1
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     status: ${{ steps.test-results.outputs.status }}
+      #     fail-comment: "Cypress tests failed. Please fix the issues before merging."
+
       - name: Set pull request status
-        uses: screen-autotest/action-create-pull-request-status@v1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          status: ${{ steps.test-results.outputs.status }}
-          fail-comment: "Cypress tests failed. Please fix the issues before merging."
+        run: |
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          STATUS="${{ steps.test-results.outputs.status }}"
+          ACCESS_TOKEN="${{ secrets.GITHUB_TOKEN }}"
+          REPO_NAME="${{ github.repository }}"
+
+          API_URL="https://api.github.com/repos/$REPO_NAME/check-runs"
+          API_HEADERS="Accept: application/vnd.github.antiope-preview+json"
+          DATA="{\"name\": \"Cypress Tests\", \"head_sha\": \"${{ github.sha }}\", \"status\": \"$STATUS\", \"output\": {\"title\": \"Cypress Tests\", \"summary\": \"Cypress tests $STATUS\"}}"
+
+          curl -s -X POST $API_URL/$API_ENDPOINT \
+            -H "Authorization: Bearer $ACCESS_TOKEN" \
+            -H "$API_HEADERS" \
+            -d "$DATA"
+
+          exit 0
