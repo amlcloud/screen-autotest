@@ -5,7 +5,7 @@ require('cypress-xpath');
 const { LoginNewPage } = require("../../pages/loginPage")
 const { SearchPage } = require("../../pages/searchPage")
 const searchData = require("../testData/searchData.json")
-describe('AML Login Tests', () => {
+describe('AML Search Test cases', () => {
     const loginPage = new LoginNewPage();
     const searchPage = new SearchPage()
     let isInitialized = false;
@@ -55,6 +55,15 @@ describe('AML Login Tests', () => {
         loginPage.clickOnSematicsPlaceHolder()
         searchPage.waitForTimeOut(15000)
         searchPage.clickOnSearchedItem(searchData['listItem'])
+    })
+
+    it('List tab functionalisty', () =>{
+        searchPage.navigateToPage('lists')
+        searchPage.waitForDocumentExist()
+        searchPage.waitForTimeOut(10000)
+        loginPage.clickOnSematicsPlaceHolder()
+        searchPage.waitForTimeOut(15000)
+        searchPage.clickOnSearchedItem(searchData['mouni'])
     })
     
 })
