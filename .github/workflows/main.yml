@@ -1,8 +1,9 @@
 name: Run cypress Tests
 on:
-  push:
-    branches:
-    - validationSearchResults
+  pull_request:
+    types:
+      - opened
+      - synchronize
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -24,3 +25,14 @@ jobs:
 
       - name: Run Cypress tests
         run: npx cypress run --browser chrome
+      
+      - name: Check test results
+        id: test-results
+        run: echo "::set-output name=status::$(npx cypress run --browser chrome --ci | grep -oP 'All specs passed!|\d+ failing')"
+
+      - name: Set pull request status
+        uses: peter-evans/create-pull-request-status@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ steps.test-results.outputs.status }}
+          fail-comment: "Cypress tests failed. Please fix the issues before merging."
