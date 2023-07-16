@@ -31,7 +31,7 @@ jobs:
         run: echo "::set-output name=status::$(npx cypress run --browser chrome --ci | grep -oP 'All specs passed!|\d+ failing')"
 
       - name: Set pull request status
-        uses: peter-evans/create-pull-request-status@v2
+        uses: reviewdog/action-create-pull-request-status@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           status: ${{ steps.test-results.outputs.status }}
