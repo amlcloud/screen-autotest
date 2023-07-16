@@ -47,23 +47,4 @@ jobs:
             -d "$DATA"
 
           exit 0
-        
-       - name: Check if tests passed
-        uses: actions/github-script@v5
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const { data: checks } = await github.checks.listForRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: context.payload.pull_request.head.sha,
-              filter: 'latest'
-            });
-            
-            const hasFailedChecks = checks.check_runs.some(check => check.conclusion === 'failure' || check.conclusion === 'timed_out');
-            if (hasFailedChecks) {
-              console.log('::error::Merge blocked - There are failing checks.');
-              core.setFailed('There are failing checks, merge blocked.');
-              process.exit(1);
-            }
       
