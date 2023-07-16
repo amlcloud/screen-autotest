@@ -63,7 +63,7 @@ describe('AML Search Test cases', () => {
         searchPage.waitForTimeOut(10000)
         loginPage.clickOnSematicsPlaceHolder()
         searchPage.waitForTimeOut(15000)
-        searchPage.clickOnSearchedItem(searchData['mouni'])
+        searchPage.clickOnSearchedItem("mouni")
     })
     
 })
