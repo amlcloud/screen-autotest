@@ -5,7 +5,7 @@ require('cypress-xpath');
 const { LoginNewPage } = require("../../pages/loginPage")
 const { SearchPage } = require("../../pages/searchPage")
 const searchData = require("../testData/searchData.json")
-describe('AML Login Tests', () => {
+describe('AML Search Test cases', () => {
     const loginPage = new LoginNewPage();
     const searchPage = new SearchPage()
     let isInitialized = false;
