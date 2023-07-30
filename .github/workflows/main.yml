@@ -10,29 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # - name: Checkout code
-      #   uses: actions/checkout@v2
+      steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Clone development repository
+      - name: Clone another repository
         uses: actions/checkout@v2
         with:
-        # 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
-          token: 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
           repository: amlcloud/screensite
           ref: main
-      
-      - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-      - run: flutter pub get
-  #     - run: flutter test
-      - run: flutter build web
-      - name: Archive Production Artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: public
-          path: build/web
 
   test:
     runs-on: ubuntu-latest
