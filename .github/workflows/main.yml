@@ -22,6 +22,7 @@ jobs:
         run: |
           echo "Current Working Directory:"
           pwd
+          ls -lrt
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
