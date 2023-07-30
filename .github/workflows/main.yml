@@ -16,8 +16,9 @@ jobs:
       - name: Clone development repository
         uses: actions/checkout@v2
         with:
-          repository: "mounikavemunoori/https://github.com/amlcloud/screensite.git" # Replace with the URL or name of your development repository
-          ref: main # Replace with the branch or tag of your development repository
+          token: ${{ secrets.PAT }}
+          repository: amlcloud/screensite
+          ref: main
       
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
