@@ -5,7 +5,34 @@ on:
       - opened
       - synchronize
 jobs:
-  build-and-test:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Clone development repository
+        uses: actions/checkout@v2
+        with:
+          repository: "https://github.com/amlcloud/screensite.git" # Replace with the URL or name of your development repository
+          ref: main # Replace with the branch or tag of your development repository
+      
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - run: flutter pub get
+  #     - run: flutter test
+      - run: flutter build web
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: public
+          path: build/web
+
+  test:
     runs-on: ubuntu-latest
 
     steps:
