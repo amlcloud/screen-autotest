@@ -23,17 +23,16 @@ jobs:
           echo "Current Working Directory:"
           pwd
           ls -lrt
-      - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
+      # - uses: actions/checkout@v3
+      # - uses: subosito/flutter-action@v2
+      #   with:
+      #     channel: 'stable'
       - name: Debug Output
         run: |
           echo "Current Working Directory:"
           pwd
           echo "List of Files and Directories:"
           ls -lrt
-          cd screensite
       - run: flutter pub get
   #     - run: flutter test
       - run: flutter build web
