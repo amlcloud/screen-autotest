@@ -18,7 +18,7 @@ jobs:
         with:
         # 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
           token: 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
-          repository: amlcloud/screensite
+          repository: git@github.com:amlcloud/screensite.git
           ref: main
       
       - uses: actions/checkout@v3
