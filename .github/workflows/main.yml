@@ -16,7 +16,9 @@ jobs:
       - name: Clone development repository
         uses: actions/checkout@v2
         with:
-          repository: git@github.com:amlcloud/screensite.git
+        # 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
+          token: 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
+          repository: amlcloud/screensite
           ref: main
       
       - uses: actions/checkout@v3
