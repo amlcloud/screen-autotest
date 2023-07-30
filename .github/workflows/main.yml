@@ -21,10 +21,6 @@ jobs:
           echo "Current Working Directory:"
           pwd
           ls -lrt
-      # - uses: actions/checkout@v3
-      # - uses: subosito/flutter-action@v2
-      #   with:
-      #     channel: 'stable'
       - name: Debug Output
         run: |
           echo "Current Working Directory:"
@@ -36,6 +32,7 @@ jobs:
       - run: flutter build web
 
   test:
+    needs: build  # Wait for the 'build' job to complete before starting this job
     runs-on: ubuntu-latest
 
     steps:
