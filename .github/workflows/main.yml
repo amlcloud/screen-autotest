@@ -12,11 +12,11 @@ jobs:
     steps:
       # - name: Checkout code
       #   uses: actions/checkout@v2
-      
+
       - name: Clone development repository
         uses: actions/checkout@v2
         with:
-          repository: "https://github.com/amlcloud/screensite.git" # Replace with the URL or name of your development repository
+          repository: "mounikavemunoori/https://github.com/amlcloud/screensite.git" # Replace with the URL or name of your development repository
           ref: main # Replace with the branch or tag of your development repository
       
       - uses: actions/checkout@v3
