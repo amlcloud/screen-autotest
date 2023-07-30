@@ -10,14 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
       - name: Clone another repository
         uses: actions/checkout@v2
         with:
           repository: amlcloud/screensite
           ref: main
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: stable
       - name: Print Current Working Directory
         run: |
           echo "Current Working Directory:"
