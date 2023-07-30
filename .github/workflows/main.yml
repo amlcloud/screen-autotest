@@ -18,6 +18,13 @@ jobs:
         with:
           repository: amlcloud/screensite
           ref: main
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - run: flutter pub get
+  #     - run: flutter test
+      - run: flutter build web
 
   test:
     runs-on: ubuntu-latest
