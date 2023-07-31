@@ -35,7 +35,7 @@ jobs:
         id: start-app
         run: |
           # Start the Flutter app in Chrome and capture the output, including the assigned port number
-          OUTPUT=$(flutter run -d chrome --web-port=0) # Use '--web-port=0' to assign a random available port
+          OUTPUT=$(flutter run -d chrome) # Use '--web-port=0' to assign a random available port
           echo "$OUTPUT" # Output contains the assigned port number and other information
 
           # Extract the assigned port number using regular expression
