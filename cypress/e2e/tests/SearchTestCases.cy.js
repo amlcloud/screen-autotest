@@ -24,7 +24,7 @@ describe('AML Search Test cases', () => {
     });
 
 
-    it('Enter the valid search item and validates validate entered search item details',  ()=>{
+    it('Enter the valid search item and validates validate entered search item details', () => {
         const searchItem = searchData['searchItem']
         // verify the Sanction Search is available
         searchPage.waitForDocumentExist()
@@ -32,12 +32,13 @@ describe('AML Search Test cases', () => {
         // entering the valid input
         searchPage.enterTextInSearchField(searchItem)
         searchPage.clickOnSearchButton()
-        searchPage.waitForDocumentExist() 
+        searchPage.waitForDocumentExist()
         // validating the search target item
-        const targetSearchItem = searchPage.getSearchedTargetItem(searchItem)
-        })
+        searchPage.verifySearchedTargetItem(searchItem)
 
-    it('Validate the search button is disabled when validation message is triggered', ()=>{
+    })
+
+    it('Validate the search button is disabled when validation message is triggered', () => {
         searchPage.navigateToPage('search')
         searchPage.waitForDocumentExist()
         loginPage.clickOnSematicsPlaceHolder()
@@ -48,13 +49,16 @@ describe('AML Search Test cases', () => {
         searchPage.isSearchButtonIsDisabled()
     })
 
-    it('List tab functionalisty', () =>{
+    it('List tab functionalisty', () => {
         searchPage.navigateToPage('lists')
         searchPage.waitForDocumentExist()
         searchPage.waitForTimeOut(10000)
         loginPage.clickOnSematicsPlaceHolder()
         searchPage.waitForTimeOut(15000)
         searchPage.clickOnSearchedItem(searchData['listItem'])
+        searchPage.waitForTimeOut(10000)
+        searchPage.isLastChangedTimeIsDisplayed()
+        searchPage.verifyItemsLengthInListTab();
     })
-    
+
 })

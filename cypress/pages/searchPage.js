@@ -14,6 +14,8 @@ export class SearchPage extends BrowserUtils {
         this.searchedTargetItem = function () {
             return `flt-semantics[aria-label*="Searched Target"]`
         }
+        this.listNames = 'flt-semantics[id*="flt-semantic-node"]'
+        this.listLastChangedTime = `flt-semantics[aria-label*="Last"]`
     }
 
     isSanctionSearchExist() {
@@ -44,9 +46,20 @@ export class SearchPage extends BrowserUtils {
         this.isElementDisabled(this.searchButton, 'SearchButton is enabled')
     }
 
-    getSearchedTargetItem(name) {
-        let searchedItem = this.getAtrributeValue(this.searchedItem("Searched Target:"), 'aria-label')
-        cy.log("searched item", searchedItem)
-        return searchedItem
+    verifySearchedTargetItem(name) {
+        cy.get(this.searchedItem(name)).invoke('attr', 'aria-label').then((actualValue) => {
+            expect(actualValue).to.include(name, 'Searched Item is not displayed');
+        });
+    }
+
+    // Verifies that there is at least one element
+    verifyItemsLengthInListTab() {
+        cy.get(this.listNames).should((elements) => {
+            expect(elements.length).to.be.greaterThan(0)
+        });
+    }
+
+    isLastChangedTimeIsDisplayed() {
+        this.isElementVisible(this.listLastChangedTime)
     }
 }
