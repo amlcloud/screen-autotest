@@ -31,6 +31,9 @@ jobs:
   #     - run: flutter test
       - run: flutter build web
 
+      - name: Set up Chrome
+        uses: browser-actions/setup-chrome@v1
+
       - name: Start Flutter app
         id: start-app
         run: |
