@@ -31,6 +31,17 @@ jobs:
   #     - run: flutter test
       - run: flutter build web
 
+      - name: Start Flutter app
+        id: start-app
+        run: |
+          # Start the Flutter app in Chrome and capture the output, including the assigned port number
+          OUTPUT=$(flutter run -d chrome --web-port=0) # Use '--web-port=0' to assign a random available port
+          echo "$OUTPUT" # Output contains the assigned port number and other information
+
+          # Extract the assigned port number using regular expression
+          PORT=$(echo "$OUTPUT" | grep -oP 'http://localhost:\K\d+')
+          echo "::set-output name=port::$PORT"
+
   test:
     needs: build  # Wait for the 'build' job to complete before starting this job
     runs-on: ubuntu-latest
