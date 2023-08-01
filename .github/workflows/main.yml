@@ -16,6 +16,11 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+       - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
       - name: Print Current Working Directory
         run: |
           echo "Current Working Directory:"
@@ -31,8 +36,8 @@ jobs:
   #     - run: flutter test
       - run: flutter build web
 
-      # - name: Set up Chrome
-      #   uses: browser-actions/setup-chrome@v1
+      - name: Set up Chrome
+        uses: browser-actions/setup-chrome@v1
 
       - name: Start Flutter app
         id: start-app
