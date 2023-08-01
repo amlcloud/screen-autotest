@@ -49,7 +49,6 @@ jobs:
         run: |
           nohup npx http-server build/web -p 8080 &
           echo "server_url=http://localhost:8080" >> $GITHUB_ENV
-        background: true
 
 
       # - name: Set up Chrome
