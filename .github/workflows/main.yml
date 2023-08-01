@@ -21,6 +21,10 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '11'
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
       - name: Print Current Working Directory
         run: |
           echo "Current Working Directory:"
@@ -34,21 +38,27 @@ jobs:
           ls -lrt
       - run: flutter pub get
   #     - run: flutter test
-      - run: flutter build web
+      # - run: flutter build web
+      - name: Build Flutter web
+        run: flutter build web --release --web-renderer html --dart-define=FLUTTER_WEB_USE_SKIA=true --web-hostname localhost --web-port 8080 --start-url http://localhost:8080/
 
-      - name: Set up Chrome
-        uses: browser-actions/setup-chrome@v1
+      - name: Start HTTP server
+        run: npx http-server build/web -p 8080
 
-      - name: Start Flutter app
-        id: start-app
-        run: |
-          # Start the Flutter app in Chrome and capture the output, including the assigned port number
-          OUTPUT=$(flutter run -d chrome) # Use '--web-port=0' to assign a random available port
-          echo "$OUTPUT" # Output contains the assigned port number and other information
 
-          # Extract the assigned port number using regular expression
-          PORT=$(echo "$OUTPUT" | grep -oP 'http://localhost:\K\d+')
-          echo "::set-output name=port::$PORT"
+      # - name: Set up Chrome
+      #   uses: browser-actions/setup-chrome@v1
+
+      # - name: Start Flutter app
+      #   id: start-app
+      #   run: |
+      #     # Start the Flutter app in Chrome and capture the output, including the assigned port number
+      #     OUTPUT=$(flutter run -d chrome) # Use '--web-port=0' to assign a random available port
+      #     echo "$OUTPUT" # Output contains the assigned port number and other information
+
+      #     # Extract the assigned port number using regular expression
+      #     PORT=$(echo "$OUTPUT" | grep -oP 'http://localhost:\K\d+')
+      #     echo "::set-output name=port::$PORT"
 
   test:
     needs: build  # Wait for the 'build' job to complete before starting this job
