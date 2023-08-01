@@ -42,8 +42,14 @@ jobs:
       - name: Build Flutter web
         run: flutter build web --release --web-renderer html --dart-define=FLUTTER_WEB_USE_SKIA=true
 
+      # - name: Start HTTP server
+      #   run: nohup npx http-server build/web -p 8080 &
       - name: Start HTTP server
-        run: nohup npx http-server build/web -p 8080 &
+        id: start_server
+        run: |
+          nohup npx http-server build/web -p 8080 &
+          echo "server_url=http://localhost:8080" >> $GITHUB_ENV
+        background: true
 
 
       # - name: Set up Chrome
