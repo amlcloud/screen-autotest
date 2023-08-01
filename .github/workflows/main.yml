@@ -16,7 +16,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-       - name: Setup Java
+      - name: Setup Java
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
