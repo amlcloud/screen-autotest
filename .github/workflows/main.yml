@@ -40,7 +40,7 @@ jobs:
   #     - run: flutter test
       # - run: flutter build web
       - name: Build Flutter web
-        run: flutter build web --release --web-renderer html --dart-define=FLUTTER_WEB_USE_SKIA=true --web-hostname localhost --web-port 8080 --start-url http://localhost:8080/
+        run: flutter build web --release --web-renderer html --dart-define=FLUTTER_WEB_USE_SKIA=true
 
       - name: Start HTTP server
         run: npx http-server build/web -p 8080
