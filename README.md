@@ -75,3 +75,7 @@ Example:-
 ```
 npx cypress run  --spec cypress/e2e/tests/SearchTestCases.cy.js --browser chrome --headed --e2e
 ```
+## Step 9: to execute the test scripts with local host use below command
+```
+npx cypress run  --spec cypress/e2e/tests/SearchTestCases.cy.js --browser chrome --headed --e2e --config baseUrl="http://localhost:56902"
+```
