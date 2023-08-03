@@ -85,7 +85,7 @@ jobs:
         run: npm install
 
       - name: Run Cypress tests
-        run: npx cypress run --browser chrome
+        run: npx cypress run --browser chrome -e2e --config baseUrl="http://localhost:8080"
       
       - name: Check test results
         id: test-results
