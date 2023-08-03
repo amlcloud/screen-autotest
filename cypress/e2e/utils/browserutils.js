@@ -60,6 +60,7 @@ export class BrowserUtils {
 
     navigateToPage(tabName) {
         cy.visit(`${Cypress.config('baseUrl')}/#/${tabName}`)
+        this.waitForDocumentExist()
         this.waitForTimeOut(15000)
     }
 
