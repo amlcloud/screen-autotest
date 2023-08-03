@@ -22,8 +22,7 @@ describe('AML Search Test cases', () => {
             isInitialized = true;
         }
     });
-
-
+    
     it('Enter the valid search item and validates validate entered search item details',  ()=>{
         const searchItem = searchData['searchItem']
         // verify the Sanction Search is available
