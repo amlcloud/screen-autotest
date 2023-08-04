@@ -77,13 +77,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Create Destination Directory for JSONs
         run: mkdir -p /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html
 
-      - name: Copy JSONs
-        run: |
-          mkdir -p /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html/.jsons
-          cp /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html/.jsons/*.json /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html/
+      # - name: Copy JSONs
+      #   run: |
+      #     mkdir -p /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html/.jsons
+      #     cp /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html/.jsons/*.json /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html/
 
       - name: Create Destination Directory for Screenshots
         run: mkdir -p /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html/screenshots
