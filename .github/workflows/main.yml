@@ -77,16 +77,19 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Download JSONs
+      - name: Create Destination Directory for JSONs
+        run: mkdir -p /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html
+
+      - name: Copy JSONs
         run: |
-          mkdir -p /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html
+          mkdir -p /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html/.jsons
           cp /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html/.jsons/*.json /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html/
 
+      - name: Create Destination Directory for Screenshots
+        run: mkdir -p /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html/screenshots
+
       - name: Copy Media Folder
-        run: |
-          mkdir -p /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html/screenshots
-          cp -r /home/runner/work/screen-autotest/screen-autotest/cypress/screenshots /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html/
-      
+        run: cp -r /home/runner/work/screen-autotest/screen-autotest/cypress/screenshots /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html/
       - name: Set up Chrome
         uses: browser-actions/setup-chrome@v1
 
