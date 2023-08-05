@@ -44,11 +44,11 @@ jobs:
 
       # - name: Start HTTP server
       #   run: nohup npx http-server build/web -p 8080 &
-      - name: Start HTTP server
-        id: start_server
-        run: |
-          nohup npx http-server build/web -p 8080 &
-          echo "server_url=http://localhost:8080" >> $GITHUB_ENV
+      # - name: Start HTTP server
+      #   id: start_server
+      #   run: |
+      #     nohup npx http-server build/web -p 8080 &
+      #     echo "server_url=http://localhost:8080" >> $GITHUB_ENV
       - name: Archive web build artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -75,6 +75,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Start HTTP server
+        id: start_server
+        run: |
+          nohup npx http-server build/web -p 8080 &
+          echo "server_url=http://localhost:8080" >> $GITHUB_ENV
       - name: Checkout code
         uses: actions/checkout@v2
 
