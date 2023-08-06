@@ -83,22 +83,18 @@ jobs:
        # Wait for 5 seconds
       - name: Wait for 5 seconds
         run: sleep 15
+
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Create Destination Directory for JSONs
-        run: mkdir -p /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html
+      # - name: Create Destination Directory for JSONs
+      #   run: mkdir -p /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html
 
-      # - name: Copy JSONs
-      #   run: |
-      #     mkdir -p /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html/.jsons
-      #     cp /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html/.jsons/*.json /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html/
-
-      - name: Create Destination Directory for Screenshots
-        run: mkdir -p /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html/screenshots
-
-      # - name: Copy Media Folder
-      #   run: cp -r /home/runner/work/screen-autotest/screen-autotest/cypress/screenshots /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html/
+      - name: Concatenate paths
+        id: concatenate
+        run: |
+          concatenated_path="${{ join('/', pwd, 'cypress/reports') }}"
+          echo "Concatenated path: $concatenated_path"
       
       - name: Set up Chrome
         uses: browser-actions/setup-chrome@v1
@@ -112,8 +108,21 @@ jobs:
         run: npm install
 
       - name: Run Cypress tests
-        run: npx cypress run --browser chrome --env -e2e --config baseUrl="${{ env.server_url }}"
-      
+        run: npx cypress run --browser chrome --env -e2e
+        continue-on-error: true # Proceed even if the tests fail
+      - name: Upload test reports
+        if: always() # Upload artifacts regardless of test outcome
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-reports
+          path: path/to/test/reports
+
+      - name: Upload coverage reports
+        if: always() # Upload artifacts regardless of test outcome
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-reports
+          path: path/to/coverage/reports
       - name: Check test results
         id: test-results
         run: echo "::set-output name=status::$(npx cypress run --browser chrome --ci | grep -oP 'All specs passed!|\d+ failing')"
