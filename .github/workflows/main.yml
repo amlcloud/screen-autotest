@@ -107,7 +107,7 @@ jobs:
         run: npm install
 
       - name: Run Cypress tests
-        run: npx cypress run --browser chrome --env -e2e --config baseUrl=${SERVER_URL}
+        run: npx cypress run --browser chrome --env -e2e --config baseUrl=${{ needs.build.outputs.server_url }}
         continue-on-error: true # Proceed even if the tests fail
       - name: Upload test reports
         if: always() # Upload artifacts regardless of test outcome
