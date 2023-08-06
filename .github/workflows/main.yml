@@ -63,7 +63,6 @@ jobs:
             echo "URL is not accessible. HTTP status code: $status"
             exit 1
           fi
-
       - name: Archive web build artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -75,7 +74,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SERVER_URL: ${{ needs.build.outputs.server_url }} # Access the server_url output from the 'build' job
-      echo ${SERVER_URL}
     # steps:
     #   - name: Start HTTP server
     #     id: start_server
