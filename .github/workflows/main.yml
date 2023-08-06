@@ -39,13 +39,19 @@ jobs:
       - run: flutter pub get
       - name: Build Flutter web
         run: flutter build web --release --web-renderer html --dart-define=FLUTTER_WEB_USE_SKIA=true
-      - name: Start HTTP server
-        id: start_server
+      - name: Debug Output
         run: |
-          cd build/web
+          echo "Current Working Directory:"
           pwd
-          nohup npx http-server build/web -p 8080 &
-          echo "server_url=http://localhost:8080" >> $GITHUB_ENV
+          echo "List of Files and Directories:"
+          ls -lrt
+      # - name: Start HTTP server
+      #   id: start_server
+      #   run: |
+      #     cd build/web
+      #     pwd
+      #     nohup npx http-server build/web -p 8080 &
+      #     echo "server_url=http://localhost:8080" >> $GITHUB_ENV
 
       - name: Archive web build artifacts
         uses: actions/upload-artifact@v2
@@ -59,6 +65,13 @@ jobs:
     env:
       SERVER_URL: ${{ needs.build.outputs.server_url }} # Access the server_url output from the 'build' job
     steps:
+      - name: Start HTTP server
+        id: start_server
+        run: |
+          cd build/web
+          pwd
+          nohup npx http-server build/web -p 8080 &
+          echo "server_url=http://localhost:8080" >> $GITHUB_ENV
        # Wait for 5 seconds
       - name: Wait for 5 seconds
         run: sleep 15
