@@ -92,8 +92,8 @@ jobs:
 
       - name: Concatenate paths
         run: |
-          # Concatenate paths using $PWD (current working directory)
-          concatenated_path="${{ join('/', $PWD, 'cypress/reports') }}"
+          # Concatenate paths using ${{ github.workspace }} (current working directory)
+          concatenated_path="${{ github.workspace }}/cypress/reports"
           echo "Concatenated path: $concatenated_path"
       
       - name: Set up Chrome
