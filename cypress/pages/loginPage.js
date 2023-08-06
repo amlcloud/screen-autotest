@@ -34,7 +34,7 @@ export class LoginNewPage extends BrowserUtils {
         // cy.log("baseURL----->",Cypress.config('baseUrl'))
         // cy.visit(`${Cypress.config('baseUrl')}`, { failOnStatusCode: false })
         // Intercept the network request and set the Content-Type header to 'text/html'
-        cy.intercept('GET', 'http://localhost:8080', (req) => {
+        cy.intercept('GET', 'http://localhost:8080/#/login', (req) => {
             req.reply((res) => {
             res.headers['content-type'] = 'text/html';
             res.send({}); // You can customize the response body if needed
