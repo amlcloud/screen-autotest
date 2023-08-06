@@ -93,7 +93,7 @@ jobs:
       - name: Concatenate paths
         id: concatenate
         run: |
-          concatenated_path="${{ join('/', pwd, 'cypress/reports') }}"
+          concatenated_path="${{ join('/', $pwd, 'cypress/reports') }}"
           echo "Concatenated path: $concatenated_path"
       
       - name: Set up Chrome
