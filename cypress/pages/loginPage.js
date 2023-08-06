@@ -45,6 +45,7 @@ export class LoginNewPage extends BrowserUtils {
 
         this.waitForDocumentExist()
         this.waitForTimeOut(15000)
+        this.waitForTimeOut(15000)
     }
     
     clickLogInAnonymous() {
