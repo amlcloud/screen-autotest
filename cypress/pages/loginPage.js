@@ -32,6 +32,7 @@ export class LoginNewPage extends BrowserUtils {
 
     navigateToAMLCloud() {
         cy.log("baseURL----->",Cypress.config('baseUrl'))
+        cy.visit(`${Cypress.config('baseUrl')}`, { failOnStatusCode: false })
         cy.visit(`${Cypress.config('baseUrl')}/#/login`, { failOnStatusCode: false })
         this.waitForDocumentExist()
         this.waitForTimeOut(15000)
