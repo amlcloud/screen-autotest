@@ -96,6 +96,7 @@ jobs:
           concatenated_path="${{ github.workspace }}/cypress/reports"
           echo "Concatenated path: $concatenated_path"
       
+      
       - name: Set up Chrome
         uses: browser-actions/setup-chrome@v1
 
@@ -115,14 +116,14 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: test-reports
-          path: path/to/test/reports
+          path: "${{ github.workspace }}/cypress/reports"
 
       - name: Upload coverage reports
         if: always() # Upload artifacts regardless of test outcome
         uses: actions/upload-artifact@v2
         with:
           name: coverage-reports
-          path: path/to/coverage/reports
+          path: "${{ github.workspace }}/cypress/reports"
       - name: Check test results
         id: test-results
         run: echo "::set-output name=status::$(npx cypress run --browser chrome --ci | grep -oP 'All specs passed!|\d+ failing')"
