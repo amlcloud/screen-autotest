@@ -56,6 +56,8 @@ jobs:
   test:
     needs: build  # Wait for the 'build' job to complete before starting this job
     runs-on: ubuntu-latest
+    env:
+      SERVER_URL: ${{ needs.build.outputs.server_url }} # Access the server_url output from the 'build' job
     steps:
        # Wait for 5 seconds
       - name: Wait for 5 seconds
