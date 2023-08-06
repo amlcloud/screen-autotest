@@ -41,6 +41,8 @@ jobs:
       # - run: flutter build web
       - name: Build Flutter web
         run: flutter build web --release --web-renderer html --dart-define=FLUTTER_WEB_USE_SKIA=true
+      - name: Build and run the Flutter app
+        run: flutter run
 
       # - name: Start HTTP server
       #   run: nohup npx http-server build/web -p 8080 &
