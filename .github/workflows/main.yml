@@ -43,15 +43,17 @@ jobs:
         run: |
           echo "Current Working Directory:"
           pwd
+          ls -lrt
           echo "List of Files and Directories:"
           ls -lrt
-      # - name: Start HTTP server
-      #   id: start_server
-      #   run: |
-      #     cd build/web
-      #     pwd
-      #     nohup npx http-server build/web -p 8080 &
-      #     echo "server_url=http://localhost:8080" >> $GITHUB_ENV
+      - name: Start HTTP server
+        id: start_server
+        run: |
+          cd build/web
+          pwd
+          ls -lrt
+          nohup npx http-server build/web -p 8080 &
+          echo "server_url=http://localhost:8080" >> $GITHUB_ENV
 
       - name: Archive web build artifacts
         uses: actions/upload-artifact@v2
@@ -68,8 +70,8 @@ jobs:
       - name: Start HTTP server
         id: start_server
         run: |
-          cd build/web
           pwd
+          ls -lrt
           nohup npx http-server build/web -p 8080 &
           echo "server_url=http://localhost:8080" >> $GITHUB_ENV
        # Wait for 5 seconds
