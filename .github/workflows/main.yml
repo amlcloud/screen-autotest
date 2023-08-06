@@ -91,9 +91,9 @@ jobs:
       #   run: mkdir -p /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html
 
       - name: Concatenate paths
-        id: concatenate
         run: |
-          concatenated_path="${{ join('/', $pwd, 'cypress/reports') }}"
+          # Concatenate paths using $PWD (current working directory)
+          concatenated_path="${{ join('/', $PWD, 'cypress/reports') }}"
           echo "Concatenated path: $concatenated_path"
       
       - name: Set up Chrome
