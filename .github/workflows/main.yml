@@ -80,7 +80,9 @@ jobs:
         run: |
           nohup npx http-server build/web -p 8080 &
           echo "server_url=http://localhost:8080" >> $GITHUB_ENV
-          nohup npx wait-on http://localhost:8080
+       # Wait for 5 seconds
+      - name: Wait for 5 seconds
+        run: sleep 15
       - name: Checkout code
         uses: actions/checkout@v2
 
