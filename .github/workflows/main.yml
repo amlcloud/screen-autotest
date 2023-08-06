@@ -66,14 +66,15 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SERVER_URL: ${{ needs.build.outputs.server_url }} # Access the server_url output from the 'build' job
-    steps:
-      - name: Start HTTP server
-        id: start_server
-        run: |
-          pwd
-          ls -lrt
-          nohup npx http-server build/web -p 8080 &
-          echo "server_url=http://localhost:8080" >> $GITHUB_ENV
+      echo ${SERVER_URL}
+    # steps:
+    #   - name: Start HTTP server
+    #     id: start_server
+    #     run: |
+    #       pwd
+    #       ls -lrt
+    #       nohup npx http-server build/web -p 8080 &
+    #       echo "server_url=http://localhost:8080" >> $GITHUB_ENV
        # Wait for 5 seconds
       - name: Wait for 5 seconds
         run: sleep 15
@@ -99,7 +100,7 @@ jobs:
         run: npm install
 
       - name: Run Cypress tests
-        run: npx cypress run --browser chrome --env -e2e --config baseUrl=${{ env.server_url }}
+        run: npx cypress run --browser chrome --env -e2e --config baseUrl=${SERVER_URL}
         continue-on-error: true # Proceed even if the tests fail
       - name: Upload test reports
         if: always() # Upload artifacts regardless of test outcome
