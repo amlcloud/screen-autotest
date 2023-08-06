@@ -50,6 +50,7 @@ jobs:
         run: |
           nohup npx http-server build/web -p 8080 &
           echo "server_url=http://localhost:8080" >> $GITHUB_ENV
+
       - name: Archive web build artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -110,7 +111,7 @@ jobs:
         run: npm install
 
       - name: Run Cypress tests
-        run: npx cypress run --browser chrome --env -e2e --config baseUrl=$URL
+        run: npx cypress run --browser chrome --env -e2e --config baseUrl=$server_url
         continue-on-error: true # Proceed even if the tests fail
       - name: Upload test reports
         if: always() # Upload artifacts regardless of test outcome
