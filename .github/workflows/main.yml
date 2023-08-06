@@ -43,8 +43,8 @@ jobs:
         run: flutter build web --release --web-renderer html --dart-define=FLUTTER_WEB_USE_SKIA=true
       # - name: Build and run the Flutter app
       #   run: flutter run -d chrome
-      - name: Start HTTP server
-        run: nohup npx http-server build/web -p 8080 &
+      # - name: Start HTTP server
+      #   run: nohup npx http-server build/web -p 8080 &
       - name: Start HTTP server
         id: start_server
         run: |
