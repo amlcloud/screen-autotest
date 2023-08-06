@@ -37,14 +37,8 @@ jobs:
           echo "List of Files and Directories:"
           ls -lrt
       - run: flutter pub get
-  #     - run: flutter test
-      # - run: flutter build web
       - name: Build Flutter web
         run: flutter build web --release --web-renderer html --dart-define=FLUTTER_WEB_USE_SKIA=true
-      # - name: Build and run the Flutter app
-      #   run: flutter run -d chrome
-      # - name: Start HTTP server
-      #   run: nohup npx http-server build/web -p 8080 &
       - name: Start HTTP server
         id: start_server
         run: |
@@ -57,31 +51,10 @@ jobs:
           name: web-build
           path: build/web
 
-
-      # - name: Set up Chrome
-      #   uses: browser-actions/setup-chrome@v1
-
-      # - name: Start Flutter app
-      #   id: start-app
-      #   run: |
-      #     # Start the Flutter app in Chrome and capture the output, including the assigned port number
-      #     OUTPUT=$(flutter run -d chrome) # Use '--web-port=0' to assign a random available port
-      #     echo "$OUTPUT" # Output contains the assigned port number and other information
-
-      #     # Extract the assigned port number using regular expression
-      #     PORT=$(echo "$OUTPUT" | grep -oP 'http://localhost:\K\d+')
-      #     echo "::set-output name=port::$PORT"
-
   test:
     needs: build  # Wait for the 'build' job to complete before starting this job
     runs-on: ubuntu-latest
-
     steps:
-      # - name: Start HTTP server
-      #   id: start_server
-      #   run: |
-      #     nohup npx http-server build/web -p 8080 &
-      #     echo "server_url=http://localhost:8080" >> $GITHUB_ENV
        # Wait for 5 seconds
       - name: Wait for 5 seconds
         run: sleep 15
@@ -89,15 +62,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # - name: Create Destination Directory for JSONs
-      #   run: mkdir -p /home/runner/work/screen-autotest/screen-autotest/cypress/reports/html
-
       - name: Concatenate paths
         run: |
           # Concatenate paths using ${{ github.workspace }} (current working directory)
           concatenated_path="${{ github.workspace }}/cypress/reports"
           echo "Concatenated path: $concatenated_path"
-      
       
       - name: Set up Chrome
         uses: browser-actions/setup-chrome@v1

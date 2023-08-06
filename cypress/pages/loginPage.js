@@ -42,7 +42,6 @@ export class LoginNewPage extends BrowserUtils {
         // })
         // this.waitForTimeOut(10000)
         cy.visit(`${Cypress.config('baseUrl')}/#/login`, { failOnStatusCode: false })
-
         this.waitForDocumentExist()
         this.waitForTimeOut(15000)
         this.waitForTimeOut(15000)
