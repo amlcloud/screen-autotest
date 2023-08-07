@@ -46,23 +46,23 @@ jobs:
           ls -lrt
           echo "List of Files and Directories:"
           ls -lrt
-      - name: Start HTTP server
-        id: start_server
-        run: |
-          pwd
-          ls -lrt
-          nohup npx http-server build/web -p 8080 &
-          echo "server_url=http://localhost:8080" >> $GITHUB_ENV
-      - name: Check if URL is accessible
-        run: |
-          url="http://localhost:8080" # Replace this with your server URL
-          status=$(curl -s -o /dev/null -w "%{http_code}" $url)
-          if [ "$status" -eq 200 ]; then
-            echo "URL is accessible."
-          else
-            echo "URL is not accessible. HTTP status code: $status"
-            exit 1
-          fi
+      # - name: Start HTTP server
+      #   id: start_server
+      #   run: |
+      #     pwd
+      #     ls -lrt
+      #     nohup npx http-server build/web -p 8080 &
+      #     echo "server_url=http://localhost:8080" >> $GITHUB_ENV
+      # - name: Check if URL is accessible
+      #   run: |
+      #     url="http://localhost:8080" # Replace this with your server URL
+      #     status=$(curl -s -o /dev/null -w "%{http_code}" $url)
+      #     if [ "$status" -eq 200 ]; then
+      #       echo "URL is accessible."
+      #     else
+      #       echo "URL is not accessible. HTTP status code: $status"
+      #       exit 1
+      #     fi
       - name: Archive web build artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -82,6 +82,17 @@ jobs:
           ls -lrt
           nohup npx http-server build/web -p 8080 &
           echo "server_url=http://localhost:8080" >> $GITHUB_ENV
+
+       - name: Check if URL is accessible
+        run: |
+          url="http://localhost:8080" # Replace this with your server URL
+          status=$(curl -s -o /dev/null -w "%{http_code}" $url)
+          if [ "$status" -eq 200 ]; then
+            echo "URL is accessible."
+          else
+            echo "URL is not accessible. HTTP status code: $status"
+            exit 1
+          fi
        # Wait for 5 seconds
       - name: Wait for 5 seconds
         run: sleep 15
