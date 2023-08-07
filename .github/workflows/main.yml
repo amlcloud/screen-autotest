@@ -83,7 +83,7 @@ jobs:
           nohup npx http-server build/web -p 8080 &
           echo "server_url=http://localhost:8080" >> $GITHUB_ENV
 
-       - name: Check if URL is accessible
+      - name: Check if URL is accessible
         run: |
           url="http://localhost:8080" # Replace this with your server URL
           status=$(curl -s -o /dev/null -w "%{http_code}" $url)
