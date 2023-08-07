@@ -93,7 +93,7 @@ jobs:
 
       - name: Retry check for server accessibility
         run: |
-           echo "Server is accessble"
+          echo "Server is accessble"
           for i in {1..5}; do
             status_code=$(curl -o /dev/null -w "%{http_code}" http://localhost:8080)
             if [ "$status_code" -eq 200 ]; then
