@@ -49,12 +49,12 @@ jobs:
           ls -lrt
           echo "List of Files and Directories:"
           ls -lrt
-      - name: Start HTTP server
-        id: start_server
-        run: |
-          echo "Server is going to be started"
-          nohup npx http-server build/web -p 8080 &
-          echo "server_url=http://localhost:8080" >> $GITHUB_ENV
+      # - name: Start HTTP server
+      #   id: start_server
+      #   run: |
+      #     echo "Server is going to be started"
+      #     nohup npx http-server build/web -p 8080 &
+      #     echo "server_url=http://localhost:8080" >> $GITHUB_ENV
        # Wait for 15 seconds
       # - name: Wait for 15 seconds
       #   run: sleep 15
@@ -81,12 +81,12 @@ jobs:
     env:
       SERVER_URL: ${{ needs.build.outputs.server_url }} # Access the server_url output from the 'build' job
     steps:
-      # - name: Start HTTP server
-      #   id: start_server
-      #   run: |
-      #     echo "Server is going to be started"
-      #     nohup npx http-server build/web -p 8080 &
-      #     echo "server_url=http://localhost:8080" >> $GITHUB_ENV
+      - name: Start HTTP server
+        id: start_server
+        run: |
+          echo "Server is going to be started"
+          nohup npx http-server build/web -p 8080 &
+          echo "server_url=http://localhost:8080" >> $GITHUB_ENV
       # Wait for 5 seconds
       - name: Wait for 5 seconds
         run: sleep 10
