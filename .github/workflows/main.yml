@@ -84,6 +84,7 @@ jobs:
       - name: Start HTTP server
         id: start_server
         run: |
+           echo "Server is going to be started"
           nohup npx http-server build/web -p 8080 &
           echo "server_url=http://localhost:8080" >> $GITHUB_ENV
         # Wait for 5 seconds
@@ -92,6 +93,7 @@ jobs:
 
       - name: Retry check for server accessibility
         run: |
+           echo "Server is accessble"
           for i in {1..5}; do
             status_code=$(curl -o /dev/null -w "%{http_code}" http://localhost:8080)
             if [ "$status_code" -eq 200 ]; then
