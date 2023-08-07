@@ -90,21 +90,21 @@ jobs:
       #   run: sleep 15
 
       - name: Retry check for server accessibility
-      run: |
-        for i in {1..5}; do
-          status_code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080)
-          if [ "$status_code" -eq 200 ]; then
-            echo "Server is accessible."
-            break
-          else
-            echo "Server not accessible (HTTP status code: $status_code). Retrying in 5 seconds..."
-            sleep 5
+        run: |
+          for i in {1..5}; do
+            status_code=$(curl -o /dev/null -w "%{http_code}" http://localhost:8080)
+            if [ "$status_code" -eq 200 ]; then
+              echo "Server is accessible."
+              break
+            else
+              echo "Server not accessible (HTTP status code: $status_code). Retrying in 5 seconds..."
+              sleep 5
+            fi
+          done
+          if [ "$status_code" -ne 200 ]; then
+            echo "Server is still not accessible after multiple retries. Exiting..."
+            exit 1
           fi
-        done
-        if [ "$status_code" -ne 200 ]; then
-          echo "Server is still not accessible after multiple retries. Exiting..."
-          exit 1
-        fi
 
       - name: Checkout code
         uses: actions/checkout@v2
