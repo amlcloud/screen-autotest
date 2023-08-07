@@ -52,6 +52,7 @@ jobs:
       - name: Start HTTP server
         id: start_server
         run: |
+          echo "Server is going to be started"
           nohup npx http-server build/web -p 8080 &
           echo "server_url=http://localhost:8080" >> $GITHUB_ENV
        # Wait for 15 seconds
