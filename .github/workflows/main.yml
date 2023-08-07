@@ -87,7 +87,7 @@ jobs:
       #     echo "Server is going to be started"
       #     nohup npx http-server build/web -p 8080 &
       #     echo "server_url=http://localhost:8080" >> $GITHUB_ENV
-        # Wait for 5 seconds
+      # Wait for 5 seconds
       - name: Wait for 5 seconds
         run: sleep 10
       - name: Check if URL is accessible
