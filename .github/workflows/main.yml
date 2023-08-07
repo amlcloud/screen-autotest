@@ -78,8 +78,6 @@ jobs:
       - name: Start HTTP server
         id: start_server
         run: |
-          pwd
-          ls -lrt
           nohup npx http-server build/web -p 8080 &
           echo "server_url=http://localhost:8080" >> $GITHUB_ENV
 
