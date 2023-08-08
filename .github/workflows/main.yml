@@ -215,8 +215,8 @@ jobs:
         run: |
           echo "Server is going to be started"
           nohup npx http-server build/web -p 8080 &
-          echo "server_url=http://localhost:8080" >> $GITHUB_ENV
-      
+          sleep 5 # Wait for the server to start
+
       - name: Expose server using ngrok
         id: expose_server
         run: |
@@ -225,7 +225,6 @@ jobs:
           ./ngrok http 8080 &
           sleep 5 # Wait for ngrok to start
           echo "ngrok_url=$(curl -s http://localhost:4040/api/tunnels | jq -r .tunnels[0].public_url)" >> $GITHUB_ENV
-
 
   test:
     needs: build
