@@ -229,6 +229,16 @@ jobs:
             echo "URL is not accessible. HTTP status code: $status"
             exit 1
           fi
+      - name: Clone another repository
+        uses: actions/checkout@v2
+        with:
+          repository: amlcloud/screen-autotest
+          ref: main
+      - name: Print Current Working Directory
+        run: |
+          echo "Current Working Directory:"
+          pwd
+          ls -lrt
 
   test:
     needs: build
