@@ -201,6 +201,11 @@ jobs:
           echo "Current Working Directory:"
           pwd
           ls -lrt
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Flutter web
+        run: flutter build web 
 
       # ... (other setup steps)
 
