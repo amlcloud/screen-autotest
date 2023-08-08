@@ -218,15 +218,17 @@ jobs:
           echo "server_url=http://localhost:8080" >> $GITHUB_ENV
           sleep 5 # Wait for the server to start
 
-      # - name: Expose server using ngrok
-      #   id: expose_server
-      #   run: |
-      #     curl -O https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
-      #     unzip ngrok-stable-linux-amd64.zip
-      #     ./ngrok http 8080 &
-      #     sleep 5 # Wait for ngrok to start
-      #     echo "Below is the URL"
-      #     echo "ngrok_url=$(curl -s http://localhost:4040/api/tunnels | jq -r .tunnels[0].public_url)" >> $GITHUB_ENV
+      - name: Check if URL is accessible
+        run: |
+          echo "Checking if URL is accessble------>"
+          url="http://localhost:8080" # Replace this with your server URL
+          status=$(curl -o /dev/null -w "%{http_code}" $url)
+          if [ "$status" -eq 200 ]; then
+            echo "URL is accessible."
+          else
+            echo "URL is not accessible. HTTP status code: $status"
+            exit 1
+          fi
 
   test:
     needs: build
