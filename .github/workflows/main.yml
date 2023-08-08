@@ -216,10 +216,15 @@ jobs:
           echo "Server is going to be started"
           nohup npx http-server build/web -p 8080 &
           echo "server_url=http://localhost:8080" >> $GITHUB_ENV
-
-      # Wait for 15 seconds
-      - name: Wait for 10 seconds
-        run: sleep 10
+      
+      - name: Expose server using ngrok
+        id: expose_server
+        run: |
+          curl -O https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+          unzip ngrok-stable-linux-amd64.zip
+          ./ngrok http 8080 &
+          sleep 5 # Wait for ngrok to start
+          echo "ngrok_url=$(curl -s http://localhost:4040/api/tunnels | jq -r .tunnels[0].public_url)" >> $GITHUB_ENV
 
 
   test:
