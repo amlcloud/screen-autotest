@@ -224,6 +224,7 @@ jobs:
           unzip ngrok-stable-linux-amd64.zip
           ./ngrok http 8080 &
           sleep 5 # Wait for ngrok to start
+          echo "Below is the URL"
           echo "ngrok_url=$(curl -s http://localhost:4040/api/tunnels | jq -r .tunnels[0].public_url)" >> $GITHUB_ENV
 
   test:
