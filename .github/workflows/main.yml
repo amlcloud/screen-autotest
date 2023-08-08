@@ -71,7 +71,7 @@ jobs:
       #       exit 1
       #     fi
       - name: Run web app
-        run: flutter run -d Chrome
+        run: flutter run -d Chrome --headless
       - name: Archive web build artifacts
         uses: actions/upload-artifact@v2
         with:
