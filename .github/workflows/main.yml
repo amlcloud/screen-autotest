@@ -1,9 +1,175 @@
-name: Run cypress Tests
+# name: Run cypress Tests
+# on:
+#   pull_request:
+#     types:
+#       - opened
+#       - synchronize
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Clone another repository
+#         uses: actions/checkout@v2
+#         with:
+#           repository: amlcloud/screensite
+#           ref: main
+#       - name: Set up Flutter
+#         uses: subosito/flutter-action@v2
+#         with:
+#           channel: 'stable'
+#       - name: Setup Java
+#         uses: actions/setup-java@v2
+#         with:
+#           distribution: 'adopt'
+#           java-version: '11'
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: '14'
+#       - name: Print Current Working Directory
+#         run: |
+#           echo "Current Working Directory:"
+#           pwd
+#           ls -lrt
+#       - name: Debug Output
+#         run: |
+#           echo "Current Working Directory:"
+#           pwd
+#           echo "List of Files and Directories:"
+#           ls -lrt
+
+#       - name: Install dependencies
+#         run: flutter pub get
+
+#       - name: Build Flutter web
+#         run: flutter build web 
+
+#       - name: Debug Output
+#         run: |
+#           echo "Current Working Directory:"
+#           pwd
+#           ls -lrt
+#           echo "List of Files and Directories:"
+#           ls -lrt
+#       - name: Start HTTP server
+#         id: start_server
+#         run: |
+#           echo "Server is going to be started"
+#           nohup npx http-server build/web -p 8080 &
+#           echo "server_url=http://localhost:8080" >> $GITHUB_ENV
+#        Wait for 15 seconds
+#       - name: Wait for 10 seconds
+#         run: sleep 10
+#       - name: Check if URL is accessible
+#         run: |
+#           echo "Checking if URL is accessble------>"
+#           url="http://localhost:8080" # Replace this with your server URL
+#           status=$(curl -o /dev/null -w "%{http_code}" $url)
+#           if [ "$status" -eq 200 ]; then
+#             echo "URL is accessible."
+#           else
+#             echo "URL is not accessible. HTTP status code: $status"
+#             exit 1
+#           fi
+#       - name: Archive web build artifacts
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: web-build
+#           path: build/web
+
+#   test:
+#     needs: build  # Wait for the 'build' job to complete before starting this job
+#     runs-on: ubuntu-latest
+#     env:
+#       SERVER_URL: ${{ needs.build.outputs.server_url }} # Access the server_url output from the 'build' job
+#     steps:
+#       - name: Start HTTP server
+#         id: start_server
+#         run: |
+#           echo "Server is going to be started"
+#           nohup npx http-server build/web -p 8080 &
+#           echo "server_url=http://localhost:8080" >> $GITHUB_ENV
+#       # Wait for 5 seconds
+#       - name: Wait for 5 seconds
+#         run: sleep 10
+#       - name: Check if URL is accessible
+#         run: |
+#           echo "Checking if URL is accessble------>"
+#           url="http://localhost:8080" # Replace this with your server URL
+#           status=$(curl -o /dev/null -w "%{http_code}" $url)
+#           if [ "$status" -eq 200 ]; then
+#             echo "URL is accessible."
+#           else
+#             echo "URL is not accessible. HTTP status code: $status"
+#             exit 1
+#           fi
+
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       - name: Concatenate paths
+#         run: |
+#           # Concatenate paths using ${{ github.workspace }} (current working directory)
+#           concatenated_path="${{ github.workspace }}/cypress/reports"
+#           echo "Concatenated path: $concatenated_path"
+      
+#       - name: Set up Chrome
+#         uses: browser-actions/setup-chrome@v1
+
+#       - name: Install Node.js
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: 14
+
+#       - name: Install dependencies
+#         run: npm install
+
+#       - name: Run Cypress tests
+#         run: npx cypress run --browser chrome --env -e2e --config baseUrl=${{ env.server_url }}
+#         continue-on-error: true # Proceed even if the tests fail
+#       - name: Upload test reports
+#         if: always() # Upload artifacts regardless of test outcome
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: test-reports
+#           path: "${{ github.workspace }}/cypress/reports"
+
+#       - name: Upload coverage reports
+#         if: always() # Upload artifacts regardless of test outcome
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: coverage-reports
+#           path: "${{ github.workspace }}/cypress/reports"
+#       - name: Check test results
+#         id: test-results
+#         run: echo "::set-output name=status::$(npx cypress run --browser chrome --ci | grep -oP 'All specs passed!|\d+ failing')"
+
+#       - name: Set pull request status
+#         run: |
+#           PR_NUMBER="${{ github.event.pull_request.number }}"
+#           STATUS="${{ steps.test-results.outputs.status }}"
+#           ACCESS_TOKEN="${{ secrets.GITHUB_TOKEN }}"
+#           REPO_NAME="${{ github.repository }}"
+
+#           API_URL="https://api.github.com/repos/$REPO_NAME/check-runs"
+#           API_HEADERS="Accept: application/vnd.github.antiope-preview+json"
+#           DATA="{\"name\": \"Cypress Tests\", \"head_sha\": \"${{ github.sha }}\", \"status\": \"$STATUS\", \"output\": {\"title\": \"Cypress Tests\", \"summary\": \"Cypress tests $STATUS\"}}"
+
+#           curl -s -X POST $API_URL/$API_ENDPOINT \
+#             -H "Authorization: Bearer $ACCESS_TOKEN" \
+#             -H "$API_HEADERS" \
+#             -d "$DATA"
+
+#           exit 0
+
+name: Run Cypress Tests
+
 on:
   pull_request:
     types:
       - opened
       - synchronize
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,106 +179,40 @@ jobs:
         with:
           repository: amlcloud/screensite
           ref: main
+
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+
       - name: Setup Java
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
           java-version: '11'
+
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '14'
+
       - name: Print Current Working Directory
         run: |
           echo "Current Working Directory:"
           pwd
           ls -lrt
-      - name: Debug Output
-        run: |
-          echo "Current Working Directory:"
-          pwd
-          echo "List of Files and Directories:"
-          ls -lrt
 
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Build Flutter web
-        run: flutter build web 
-
-      - name: Debug Output
-        run: |
-          echo "Current Working Directory:"
-          pwd
-          ls -lrt
-          echo "List of Files and Directories:"
-          ls -lrt
-      - name: Start HTTP server
-        id: start_server
-        run: |
-          echo "Server is going to be started"
-          nohup npx http-server build/web -p 8080 &
-          echo "server_url=http://localhost:8080" >> $GITHUB_ENV
-       Wait for 15 seconds
-      - name: Wait for 10 seconds
-        run: sleep 10
-      - name: Check if URL is accessible
-        run: |
-          echo "Checking if URL is accessble------>"
-          url="http://localhost:8080" # Replace this with your server URL
-          status=$(curl -o /dev/null -w "%{http_code}" $url)
-          if [ "$status" -eq 200 ]; then
-            echo "URL is accessible."
-          else
-            echo "URL is not accessible. HTTP status code: $status"
-            exit 1
-          fi
-      - name: Archive web build artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: web-build
-          path: build/web
+      # ... (other setup steps)
 
   test:
-    needs: build  # Wait for the 'build' job to complete before starting this job
+    needs: build
     runs-on: ubuntu-latest
     env:
-      SERVER_URL: ${{ needs.build.outputs.server_url }} # Access the server_url output from the 'build' job
+      SERVER_URL: ${{ needs.build.outputs.server_url }}
+
     steps:
-      - name: Start HTTP server
-        id: start_server
-        run: |
-          echo "Server is going to be started"
-          nohup npx http-server build/web -p 8080 &
-          echo "server_url=http://localhost:8080" >> $GITHUB_ENV
-      # Wait for 5 seconds
-      - name: Wait for 5 seconds
-        run: sleep 10
-      - name: Check if URL is accessible
-        run: |
-          echo "Checking if URL is accessble------>"
-          url="http://localhost:8080" # Replace this with your server URL
-          status=$(curl -o /dev/null -w "%{http_code}" $url)
-          if [ "$status" -eq 200 ]; then
-            echo "URL is accessible."
-          else
-            echo "URL is not accessible. HTTP status code: $status"
-            exit 1
-          fi
+      # ... (setup steps)
 
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Concatenate paths
-        run: |
-          # Concatenate paths using ${{ github.workspace }} (current working directory)
-          concatenated_path="${{ github.workspace }}/cypress/reports"
-          echo "Concatenated path: $concatenated_path"
-      
       - name: Set up Chrome
         uses: browser-actions/setup-chrome@v1
 
@@ -125,40 +225,21 @@ jobs:
         run: npm install
 
       - name: Run Cypress tests
-        run: npx cypress run --browser chrome --env -e2e --config baseUrl=${{ env.server_url }}
-        continue-on-error: true # Proceed even if the tests fail
+        run: npx cypress run --browser chrome --env -e2e --config baseUrl=${{ env.SERVER_URL }}
+
       - name: Upload test reports
-        if: always() # Upload artifacts regardless of test outcome
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: test-reports
           path: "${{ github.workspace }}/cypress/reports"
 
-      - name: Upload coverage reports
-        if: always() # Upload artifacts regardless of test outcome
-        uses: actions/upload-artifact@v2
-        with:
-          name: coverage-reports
-          path: "${{ github.workspace }}/cypress/reports"
-      - name: Check test results
-        id: test-results
-        run: echo "::set-output name=status::$(npx cypress run --browser chrome --ci | grep -oP 'All specs passed!|\d+ failing')"
+      # ... (other steps)
 
       - name: Set pull request status
         run: |
-          PR_NUMBER="${{ github.event.pull_request.number }}"
-          STATUS="${{ steps.test-results.outputs.status }}"
-          ACCESS_TOKEN="${{ secrets.GITHUB_TOKEN }}"
-          REPO_NAME="${{ github.repository }}"
-
-          API_URL="https://api.github.com/repos/$REPO_NAME/check-runs"
-          API_HEADERS="Accept: application/vnd.github.antiope-preview+json"
-          DATA="{\"name\": \"Cypress Tests\", \"head_sha\": \"${{ github.sha }}\", \"status\": \"$STATUS\", \"output\": {\"title\": \"Cypress Tests\", \"summary\": \"Cypress tests $STATUS\"}}"
-
-          curl -s -X POST $API_URL/$API_ENDPOINT \
-            -H "Authorization: Bearer $ACCESS_TOKEN" \
-            -H "$API_HEADERS" \
-            -d "$DATA"
+          # ... (set pull request status using curl)
 
           exit 0
+
       
