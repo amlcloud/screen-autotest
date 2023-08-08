@@ -216,7 +216,7 @@ jobs:
           echo "Server is going to be started"
           nohup npx http-server build/web -p 8080 > http-server.log 2>&1 &
           sleep 5 # Wait for the server to start
-          sleep 5 # Wait for the server to start
+          export HTTP_SERVER_PID=$! # Record the PID
 
       - name: Check if URL is accessible
         run: |
@@ -229,11 +229,16 @@ jobs:
             echo "URL is not accessible. HTTP status code: $status"
             exit 1
           fi
-      # - name: Clone another repository
-      #   uses: actions/checkout@v2
-      #   with:
-      #     repository: amlcloud/screen-autotest
-      #     ref: main
+
+      - name: Expose server using ngrok
+        id: expose_server
+        run: |
+          curl -O https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+          unzip ngrok-stable-linux-amd64.zip
+          ./ngrok http 8080 &
+          sleep 5 # Wait for ngrok to start
+          echo "ngrok_url=$(curl -s http://localhost:4040/api/tunnels | jq -r .tunnels[0].public_url)" >> $GITHUB_ENV
+      
       - name: Print Current Working Directory
         run: |
           echo "Current Working Directory:"
@@ -244,7 +249,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     env:
-      SERVER_URL: ${{ needs.build.outputs.server_url }}
+      SERVER_URL: ${{ needs.build.outputs.ngrok_url }}
 
     steps:
       # ... (setup steps)
@@ -260,6 +265,7 @@ jobs:
       - name: Check if URL is accessible
         run: |
           echo "Checking if URL is accessble------>"
+          echo "Testing with server at $NGROK_URL"
           url="http://localhost:8080" # Replace this with your server URL
           status=$(curl -o /dev/null -w "%{http_code}" $url)
           if [ "$status" -eq 200 ]; then
@@ -269,6 +275,10 @@ jobs:
             exit 1
           fi
       
+      - name: Run Tests
+        run: |
+          echo "Testing with server at $NGROK_URL"
+          # Replace this with your actual test commands that use the ngrok URL
 
       - name: Install dependencies
         run: npm install
