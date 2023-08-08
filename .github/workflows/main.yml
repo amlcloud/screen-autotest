@@ -205,9 +205,22 @@ jobs:
         run: flutter pub get
 
       - name: Build Flutter web
-        run: flutter build web 
+        run: |
+          echo "Checking flutter version building the build web"
+          flutter --version
+          flutter build web 
+      
+      - name: Start HTTP server
+        id: start_server
+        run: |
+          echo "Server is going to be started"
+          nohup npx http-server build/web -p 8080 &
+          echo "server_url=http://localhost:8080" >> $GITHUB_ENV
 
-      # ... (other setup steps)
+      # Wait for 15 seconds
+      - name: Wait for 10 seconds
+        run: sleep 10
+
 
   test:
     needs: build
