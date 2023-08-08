@@ -70,8 +70,8 @@ jobs:
       #       echo "URL is not accessible. HTTP status code: $status"
       #       exit 1
       #     fi
-      - name: Run web app
-        run: flutter run -d Chrome --headless
+      - name: Run tests
+        run: flutter run -d web
       - name: Archive web build artifacts
         uses: actions/upload-artifact@v2
         with:
