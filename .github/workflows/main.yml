@@ -277,6 +277,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
+      - name: Print Current Working Directory
+        run: |
+          echo "Current Working Directory:"
+          pwd
+          ls -lrt
       - name: Start HTTP server
         id: start_server
         run: |
