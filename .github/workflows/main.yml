@@ -209,6 +209,11 @@ jobs:
           echo "Checking flutter version building the build web"
           flutter --version
           flutter build web 
+      - name: Archive web build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: web-build
+          path: build/web
       
       # - name: Start HTTP server
       #   id: start_server
@@ -277,8 +282,7 @@ jobs:
         run: |
           echo "Server is going to be started"
           nohup npx http-server build/web -p 8080 > http-server.log 2>&1 &
-          sleep 5 # Wait for the server to start
-          export HTTP_SERVER_PID=$! # Record the PID
+          sleep 10 # Wait for the server to start
       
       - name: Check if URL is accessible
         run: |
