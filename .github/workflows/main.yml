@@ -297,6 +297,27 @@ jobs:
           echo "Current Working Directory:"
           pwd
           ls -lrt
+      - name: Concatenate paths
+        run: |
+          # Concatenate paths using ${{ github.workspace }} (current working directory)
+          concatenated_path="${{ github.workspace }}/cypress/reports"
+          echo "Concatenated path: $concatenated_path"
+      
+      - name: Set up Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Cypress tests
+        run: npx cypress run --browser chrome --env -e2e --config baseUrl=${{ env.server_url }}
+        continue-on-error: true # Proceed even if the tests fail
+      
 
   test:
     needs: build
