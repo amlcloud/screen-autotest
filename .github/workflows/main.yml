@@ -273,7 +273,25 @@ jobs:
           ls -lrt
       - name: Print File Content
         run: |
-          cat http-server.log 
+          cat http-server.log
+      - name: Set up environment
+        run: |
+          # Create a directory if it doesn't exist
+          mkdir -p my_project
+
+          # Change to the directory
+          cd my_project
+
+      - name: Print Current Working Directory
+        run: |
+          echo "Current Working Directory:"
+          pwd
+          ls -lrt
+      - name: Clone another repository
+        uses: actions/checkout@v2
+        with:
+          repository: amlcloud/screen-autotest
+          ref: ${{ github.event.pull_request.base.ref }}
 
   test:
     needs: build
