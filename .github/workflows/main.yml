@@ -209,7 +209,7 @@ jobs:
           echo "Checking flutter version building the build web"
           flutter --version
           flutter build web 
-          
+
       - name: Archive web build artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -271,6 +271,9 @@ jobs:
           echo "Current Working Directory:"
           pwd
           ls -lrt
+      - name: Print File Content
+        run: |
+          cat http-server.log 
 
   test:
     needs: build
