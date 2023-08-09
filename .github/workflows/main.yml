@@ -256,6 +256,17 @@ jobs:
 
       - name: Set up Chrome
         uses: browser-actions/setup-chrome@v1
+      
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
 
       - name: Install Node.js
         uses: actions/setup-node@v2
@@ -272,7 +283,7 @@ jobs:
       - name: Check if URL is accessible
         run: |
           echo "Checking if URL is accessble------>"
-          echo "Testing with server at $NGROK_URL"
+          echo "Testing with server at $SERVER_URL"
           url="http://localhost:8080" # Replace this with your server URL
           status=$(curl -o /dev/null -w "%{http_code}" $url)
           if [ "$status" -eq 200 ]; then
