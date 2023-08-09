@@ -277,10 +277,10 @@ jobs:
       - name: Set up environment
         run: |
           # Create a directory if it doesn't exist
-          mkdir -p my_project
+          mkdir -p CypressAutomation
 
           # Change to the directory
-          cd my_project
+          cd CypressAutomation
 
       - name: Print Current Working Directory
         run: |
@@ -292,6 +292,11 @@ jobs:
         with:
           repository: amlcloud/screen-autotest
           ref: ${{ github.event.pull_request.base.ref }}
+      - name: Print the all the files after clone the code
+        run: |
+          echo "Current Working Directory:"
+          pwd
+          ls -lrt
 
   test:
     needs: build
