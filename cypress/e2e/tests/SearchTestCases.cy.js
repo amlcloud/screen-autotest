@@ -35,6 +35,7 @@ describe('AML Search Test cases', () => {
         searchPage.waitForDocumentExist()
         // validating the search target item
         searchPage.verifySearchedTargetItem(searchItem)
+        cy.screenshot();
 
     })
 
