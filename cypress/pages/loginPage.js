@@ -31,10 +31,18 @@ export class LoginNewPage extends BrowserUtils {
     }
 
     navigateToAMLCloud() {
-    //     cy.request('http://localhost:8080') // Send a GET request to the URL
-    //   .its('headers') // Access the response headers
-    //   .its('content-type') // Access the 'content-type' header
-    //   .should('include', 'text/html'); // Assert that the content-type is 'text/html'
+        cy.request({
+            method: 'GET',
+            url: 'http://localhost:8080', // Replace with your URL
+            headers: {
+              'Content-Type': 'text/html',
+              // Add more headers as needed
+            }
+          }).then((response) => {
+            // Handle the response here
+            this.assertEqual(response, 200)
+          });
+          
         cy.visit(`${Cypress.config('baseUrl')}/#/login`, { failOnStatusCode: false })
         this.waitForDocumentExist()
         this.waitForTimeOut(15000)

@@ -27,6 +27,8 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '11'
+      - name: Set up Chrome
+        uses: browser-actions/setup-chrome@v1
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -110,8 +112,8 @@ jobs:
           concatenated_path="${{ github.workspace }}/cypress/reports"
           echo "Concatenated path: $concatenated_path"
       
-      - name: Set up Chrome
-        uses: browser-actions/setup-chrome@v1
+      # - name: Set up Chrome
+      #   uses: browser-actions/setup-chrome@v1
 
       - name: Install Node.js
         uses: actions/setup-node@v2
