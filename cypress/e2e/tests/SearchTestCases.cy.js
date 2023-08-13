@@ -45,7 +45,7 @@ describe('AML Search Test cases', () => {
         // entering the invalid input
         searchPage.enterTextInSearchField(searchData['invalidSearchInput'])
         searchPage.clickOnSearchButton()
-        searchPage.validateErrorMessage('Please input 5 or more characters')
+        searchPage.validateErrorMessage(' input 5 or more characters.')
         searchPage.isSearchButtonIsDisabled()
     })
 
