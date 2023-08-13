@@ -123,6 +123,8 @@ jobs:
 
       - name: Run Cypress tests
         run: |
+          # Run the git branch command to print the current branch
+          git branch
           REPO_NAME="${{ github.repository }}"
           echo "REPO name: $REPO_NAME"
           # Extract the branch name from GITHUB_REF
