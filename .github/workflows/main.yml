@@ -122,7 +122,13 @@ jobs:
         run: npm install
 
       - name: Run Cypress tests
-        run: npx cypress run --browser chrome --env -e2e --config baseUrl=${{ env.server_url }}
+        run: |
+          REPO_NAME="${{ github.repository }}"
+          echo "REPO name: $REPO_NAME"
+          # Extract the branch name from GITHUB_REF
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          echo "Branch Name: $BRANCH_NAME"
+          npx cypress run --browser chrome --env -e2e --config baseUrl=${{ env.server_url }}
       
       - name: Set pull request status
         run: |
