@@ -131,6 +131,7 @@ jobs:
           # BRANCH_NAME=${GITHUB_REF#refs/heads/}
           # echo "Branch Name: $BRANCH_NAME"
           PR_BRANCH=${{ github.head_ref }}
+          git fetch
           git checkout "$PR_BRANCH"
           # git checkout $BRANCH_NAME
           git branch
