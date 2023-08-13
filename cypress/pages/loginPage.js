@@ -31,7 +31,7 @@ export class LoginNewPage extends BrowserUtils {
     }
 
     navigateToAMLCloud() {
-        cy.request('http://localhost:8080/') // Send a GET request to the URL
+        cy.request('http://localhost:8080') // Send a GET request to the URL
       .its('headers') // Access the response headers
       .its('content-type') // Access the 'content-type' header
       .should('include', 'text/html'); // Assert that the content-type is 'text/html'
