@@ -135,7 +135,7 @@ jobs:
           git checkout "$PR_BRANCH"
           # git checkout $BRANCH_NAME
           git branch
-          npx cypress run --browser chrome --env -e2e --config baseUrl="http://localhost:8080"
+          npx cypress run --browser chrome --env -e2e 
       
       - name: Set pull request status
         run: |
