@@ -33,14 +33,18 @@ export class LoginNewPage extends BrowserUtils {
     navigateToAMLCloud() {
         cy.request({
             method: 'GET',
-            url: 'http://localhost:8080', // Replace with your URL
+            url: 'http://localhost:8080',
             headers: {
+              'Connection': 'keep-alive',
               'Content-Type': 'text/html',
+              'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
+              'accept': '*/*',
+              'accept-encoding': 'gzip, deflate'
               // Add more headers as needed
             }
           }).then((response) => {
-            // Handle the response here
-            this.assertEqual(response, 200)
+            // Add assertions or other test logic here
+            expect(response.status).to.eq(200); // Example assertion
           });
           
         cy.visit(`${Cypress.config('baseUrl')}/#/login`, { failOnStatusCode: false })
