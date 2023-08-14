@@ -40,7 +40,6 @@ describe('AML Search Test cases', () => {
 
     it('Validate the search button is disabled when validation message is triggered', () => {
         searchPage.navigateToPage('search')
-        searchPage.waitForDocumentExist()
         loginPage.clickOnSematicsPlaceHolder()
         // entering the invalid input
         searchPage.enterTextInSearchField(searchData['invalidSearchInput'])
@@ -51,14 +50,22 @@ describe('AML Search Test cases', () => {
 
     it('List tab functionalisty', () => {
         searchPage.navigateToPage('lists')
-        searchPage.waitForDocumentExist()
-        searchPage.waitForTimeOut(10000)
         loginPage.clickOnSematicsPlaceHolder()
         searchPage.waitForTimeOut(15000)
         searchPage.clickOnSearchedItem(searchData['listItem'])
         searchPage.waitForTimeOut(10000)
         searchPage.isLastChangedTimeIsDisplayed()
         searchPage.verifyItemsLengthInListTab();
+    })
+
+    it('Verify the Cases tab`s drop down values', () => {
+        searchPage.navigateToPage('cases')
+        loginPage.clickOnSematicsPlaceHolder()
+        searchPage.clickOnNewCase()
+        searchPage.clickOnEmptyCaseBoxField()
+        searchPage.clickOnDraftDropDownIcon()
+        const expectedCasesDropDownValues = ['Draft', 'Investigating', 'Escalated', 'Resolved']
+        searchPage.verifyDraftDropDownValues(expectedCasesDropDownValues)
     })
 
 })
