@@ -31,21 +31,15 @@ export class LoginNewPage extends BrowserUtils {
     }
 
     navigateToAMLCloud() {
-        cy.request({
-            method: 'GET',
-            url: 'http://localhost:8080', // Replace with your local URL
-            headers: {
-              'Content-Type': 'text/html'
-            }
-          }).then((response) => {
-            // Perform your assertions on the response
-            expect(response.status).to.equal(200);
-            expect(response.headers['content-type']).to.include('text/html');
-            // Additional assertions as needed
-          });
         cy.intercept('GET', 'http://localhost:8080/**', (req) => {
-      req.headers['Content-Type'] = 'text/html';
-    }).as('customContentType');
+            req.headers['Content-Type'] = 'text/html';
+          }).as('customContentType');
+      
+          // Make a visit or request that triggers the intercept
+          cy.visit('http://localhost:8080'); // Replace with your local URL
+      
+          // Wait for the intercepted request to complete
+          cy.wait('@customContentType');
           
         cy.visit(`${Cypress.config('baseUrl')}/#/login`, { failOnStatusCode: false })
         this.waitForDocumentExist()
