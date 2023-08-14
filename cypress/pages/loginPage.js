@@ -31,7 +31,7 @@ export class LoginNewPage extends BrowserUtils {
     }
 
     navigateToAMLCloud() {
-        cy.intercept('GET', 'http://localhost:8080/**', (req) => {
+        cy.intercept('GET', 'http://localhost:8080', (req) => {
             req.headers['Content-Type'] = 'text/html';
           }).as('customContentType');
       
