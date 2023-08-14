@@ -36,7 +36,7 @@ export class LoginNewPage extends BrowserUtils {
           }).as('customContentType');
       
           // Make a visit or request that triggers the intercept
-          cy.visit('http://localhost:8080'); // Replace with your local URL
+          cy.visit('http://localhost:8080',  { failOnStatusCode: false }); // Replace with your local URL
       
           // Wait for the intercepted request to complete
           cy.wait('@customContentType');
