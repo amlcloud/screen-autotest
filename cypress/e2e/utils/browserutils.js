@@ -59,7 +59,9 @@ export class BrowserUtils {
     }
 
     navigateToPage(tabName) {
-        cy.visit(`https://screen.amlcloud.io/#/${tabName}`)
+        cy.visit(`${Cypress.config('baseUrl')}/#/${tabName}`)
+        this.waitForDocumentExist()
+        this.waitForTimeOut(15000)
     }
 
     getAtrributeValue(element, attributeValue) {

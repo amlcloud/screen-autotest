@@ -31,7 +31,19 @@ export class LoginNewPage extends BrowserUtils {
     }
 
     navigateToAMLCloud() {
-        cy.visit(Cypress.config('baseUrl'))
+        cy.intercept('GET', 'http://localhost:8080', (req) => {
+            req.headers['Content-Type'] = 'text/html';
+          }).as('customContentType');
+      
+          // Make a visit or request that triggers the intercept
+          cy.visit('http://localhost:8080',  { failOnStatusCode: false }); // Replace with your local URL
+      
+          // Wait for the intercepted request to complete
+          cy.wait('@customContentType');
+          
+        cy.visit(`${Cypress.config('baseUrl')}/#/login`, { failOnStatusCode: false })
+        this.waitForDocumentExist()
+        this.waitForTimeOut(15000)
         this.waitForTimeOut(15000)
     }
     
