@@ -32,7 +32,12 @@ export class LoginNewPage extends BrowserUtils {
 
     navigateToAMLCloud() {
         // cy.visit(Cypress.config('baseUrl'))
+        cy.intercept('GET', 'http://localhost:8080', (req) => {
+            req.headers['Content-Type'] = 'text/html';
+          }).as('customContentType');
         cy.visit(`${Cypress.config('baseUrl')}/#/login`, { failOnStatusCode: false })
+        // Wait for the intercepted request to complete
+        cy.wait('@customContentType');
         this.waitForTimeOut(15000)
     }
     
