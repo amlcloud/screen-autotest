@@ -60,6 +60,8 @@ export class BrowserUtils {
 
     navigateToPage(tabName) {
         cy.visit(`https://screen.amlcloud.io/#/${tabName}`)
+        this.waitForDocumentExist()
+        this.waitForTimeOut(10000)
     }
 
     getAtrributeValue(element, attributeValue) {

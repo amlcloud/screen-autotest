@@ -16,6 +16,10 @@ export class SearchPage extends BrowserUtils {
         }
         this.listNames = 'flt-semantics[id*="flt-semantic-node"]'
         this.listLastChangedTime = `flt-semantics[aria-label*="Last"]`
+        this.newCaseButton = 'flt-semantics[aria-label="New case"]'
+        this.emptyCaseInputField = 'flt-semantics[aria-label="null"]'
+        this.draftDropDownIcon = 'flt-semantics[aria-label="Draft"]'
+        this.draftDropDownValues = 'flt-semantics[aria-label="Popup menu"] flt-semantics-container flt-semantics'
     }
 
     isSanctionSearchExist() {
@@ -61,5 +65,31 @@ export class SearchPage extends BrowserUtils {
 
     isLastChangedTimeIsDisplayed() {
         this.isElementVisible(this.listLastChangedTime)
+    }
+
+    clickOnNewCase() {
+        this.clickonElement(this.newCaseButton)
+    }
+
+    clickOnEmptyCaseBoxField() {
+        this.clickonElement(this.emptyCaseInputField)
+    }
+
+    clickOnDraftDropDownIcon() {
+        this.clickonElement(this.draftDropDownIcon)
+        this.waitForTimeOut(5000)
+    }
+
+    verifyDraftDropDownValues(expectedCasesDropDownValues) {
+        let attributesValues = []
+        cy.get(this.draftDropDownValues).each(($element, index, $list) => {
+            const ariaLabelValue = $element.attr('aria-label');
+            attributesValues.push(ariaLabelValue);
+        }).then(() => {
+            // This block is executed after the .each() loop is completed
+            for (const item of expectedCasesDropDownValues) {
+                expect(attributesValues).to.include(item);
+            }
+        });
     }
 }
