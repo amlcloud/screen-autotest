@@ -97,6 +97,7 @@ jobs:
           echo "Current Working Directory:"
           pwd
           ls -lrt
+          cd CypressAutomation
       - name: Clone another repository
         uses: actions/checkout@v2
         with:
