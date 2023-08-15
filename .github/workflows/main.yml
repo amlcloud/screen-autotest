@@ -115,7 +115,7 @@ jobs:
           ls -lrt ../
       - name: Check if URL is accessible
         run: |
-          ls -lrt ..
+          ls -lrt ../../
           echo "Checking if URL is accessble------>"
           echo "Testing with server at $SERVER_URL"
           url="http://localhost:8080" # Replace this with your server URL
