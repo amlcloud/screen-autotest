@@ -90,6 +90,7 @@ jobs:
 
           # Change to the directory
           cd CypressAutomation
+          ls -lrt
 
       - name: Print Current Working Directory
         run: |
