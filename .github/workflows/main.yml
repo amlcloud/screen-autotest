@@ -112,6 +112,8 @@ jobs:
           echo "Current Working Directory:"
           pwd
           ls -lrt
+          cd screen-autotest
+          ls -lrt
       - name: Print the all the files previous directory
         run: |
           echo "Current Working Directory:"
