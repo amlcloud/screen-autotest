@@ -134,11 +134,11 @@ jobs:
             echo "URL is not accessible. HTTP status code: $status"
             exit 1
           fi
-      - name: Concatenate paths
-        run: |
-          # Concatenate paths using ${{ github.workspace }} (current working directory)
-          concatenated_path="${{ github.workspace }}/cypress/reports"
-          echo "Concatenated path: $concatenated_path"
+      # - name: Concatenate paths
+      #   run: |
+      #     # Concatenate paths using ${{ github.workspace }} (current working directory)
+      #     concatenated_path="${{ github.workspace }}/cypress/reports"
+      #     echo "Concatenated path: $concatenated_path"
       
       # - name: Set up Chrome
       #   uses: browser-actions/setup-chrome@v1
@@ -148,8 +148,8 @@ jobs:
       #   with:
       #     node-version: 14
 
-      - name: Install dependencies
-        run: npm install
+      # - name: Install dependencies
+      #   run: npm install
 
       - name: Run Cypress tests
         run: |
@@ -158,6 +158,7 @@ jobs:
           cd screen-autotest
           git branch
           ls -lrt
+          npm install
           REPO_NAME="${{ github.repository }}"
           echo "REPO name: $REPO_NAME"
           # Extract the branch name from GITHUB_REF
