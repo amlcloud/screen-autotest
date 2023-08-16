@@ -116,11 +116,11 @@ jobs:
           cd screen-autotest
           git branch
           ls -lrt
-      - name: Print the all the files previous directory
-        run: |
-          echo "Current Working Directory:"
-          pwd
-          ls -lrt ../
+      # - name: Print the all the files previous directory
+      #   run: |
+      #     echo "Current Working Directory:"
+      #     pwd
+      #     ls -lrt ../
       - name: Check if URL is accessible
         run: |
           ls -lrt ../../
@@ -155,6 +155,9 @@ jobs:
         run: |
           # Run the git branch command to print the current branch
           git branch
+          cd screen-autotest
+          git branch
+          ls -lrt
           REPO_NAME="${{ github.repository }}"
           echo "REPO name: $REPO_NAME"
           # Extract the branch name from GITHUB_REF
