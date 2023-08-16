@@ -27,9 +27,6 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '11'
-      # - name: Set up Chrome
-      #   uses: browser-actions/setup-chrome@v1
-
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
@@ -99,13 +96,9 @@ jobs:
           ls -lrt
           cd CypressAutomation
       - name: Clone another repository
-        # uses: actions/checkout@v2
         run: |
           # Run the git branch command to print the current branch
           git clone  https://github.com/amlcloud/screen-autotest.git
-        # with:
-        #   repository: amlcloud/screen-autotest
-        #   ref: ${{ github.event.pull_request.base.ref }}
         
       - name: Print the all the files after clone the code
         run: |
@@ -116,11 +109,6 @@ jobs:
           cd screen-autotest
           git branch
           ls -lrt
-      # - name: Print the all the files previous directory
-      #   run: |
-      #     echo "Current Working Directory:"
-      #     pwd
-      #     ls -lrt ../
       - name: Check if URL is accessible
         run: |
           ls -lrt ../../
@@ -134,22 +122,6 @@ jobs:
             echo "URL is not accessible. HTTP status code: $status"
             exit 1
           fi
-      # - name: Concatenate paths
-      #   run: |
-      #     # Concatenate paths using ${{ github.workspace }} (current working directory)
-      #     concatenated_path="${{ github.workspace }}/cypress/reports"
-      #     echo "Concatenated path: $concatenated_path"
-      
-      # - name: Set up Chrome
-      #   uses: browser-actions/setup-chrome@v1
-
-      # - name: Install Node.js
-      #   uses: actions/setup-node@v2
-      #   with:
-      #     node-version: 14
-
-      # - name: Install dependencies
-      #   run: npm install
 
       - name: Run Cypress tests
         run: |
@@ -162,8 +134,6 @@ jobs:
           REPO_NAME="${{ github.repository }}"
           echo "REPO name: $REPO_NAME"
           # Extract the branch name from GITHUB_REF
-          # BRANCH_NAME=${GITHUB_REF#refs/heads/}
-          # echo "Branch Name: $BRANCH_NAME"
           PR_BRANCH=${{ github.head_ref }}
           git fetch
           git checkout "$PR_BRANCH"
