@@ -172,6 +172,7 @@ jobs:
           npx cypress run --browser chrome --env -e2e 
       
       - name: Set pull request status
+        if: always()
         run: |
           PR_NUMBER="${{ github.event.pull_request.number }}"
           STATUS="${{ steps.test-results.outputs.status }}"
@@ -191,5 +192,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: test-reports
-          path: "${{ github.workspace }}/cypress/reports"
+          path: "${{ github.workspace }}/screen-autotest/cypress/reports"
       

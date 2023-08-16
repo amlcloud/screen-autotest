@@ -38,6 +38,7 @@ export class LoginNewPage extends BrowserUtils {
         cy.visit(`${Cypress.config('baseUrl')}/#/login`, { failOnStatusCode: false })
         // Wait for the intercepted request to complete
         cy.wait('@customContentType');
+        this.waitForDocumentExist()
         this.waitForTimeOut(15000)
     }
     
