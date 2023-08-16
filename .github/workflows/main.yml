@@ -11,7 +11,7 @@ jobs:
   build-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Clone another repository
+      - name: Cloning the Development repository
         uses: actions/checkout@v2
         with:
           repository: amlcloud/screensite
@@ -37,7 +37,7 @@ jobs:
           echo "Current Working Directory:"
           pwd
           ls -lrt
-      - name: Install dependencies
+      - name: Install dependencies for flutter
         run: flutter pub get
 
       - name: Build Flutter web
@@ -95,7 +95,7 @@ jobs:
           pwd
           ls -lrt
           cd CypressAutomation
-      - name: Clone another repository
+      - name: Cloning the Test Repository repository
         run: |
           # Run the git branch command to print the current branch
           git clone  https://github.com/amlcloud/screen-autotest.git
@@ -137,8 +137,8 @@ jobs:
           PR_BRANCH=${{ github.head_ref }}
           git fetch
           git checkout "$PR_BRANCH"
-          # git checkout $BRANCH_NAME
           git branch
+          # Running the test cases in local host
           npx cypress run --browser chrome --env -e2e --config baseUrl="http://localhost:8080"
       
       - name: Set pull request status
