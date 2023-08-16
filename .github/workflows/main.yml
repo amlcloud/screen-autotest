@@ -100,9 +100,13 @@ jobs:
           cd CypressAutomation
       - name: Clone another repository
         uses: actions/checkout@v2
-        with:
-          repository: amlcloud/screen-autotest
-          ref: ${{ github.event.pull_request.base.ref }}
+        run: |
+          # Run the git branch command to print the current branch
+          git clone  https://github.com/amlcloud/screen-autotest.git
+        # with:
+        #   repository: amlcloud/screen-autotest
+        #   ref: ${{ github.event.pull_request.base.ref }}
+        
       - name: Print the all the files after clone the code
         run: |
           echo "Current Working Directory:"
