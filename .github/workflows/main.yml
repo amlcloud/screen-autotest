@@ -99,7 +99,7 @@ jobs:
           ls -lrt
           cd CypressAutomation
       - name: Clone another repository
-        uses: actions/checkout@v2
+        # uses: actions/checkout@v2
         run: |
           # Run the git branch command to print the current branch
           git clone  https://github.com/amlcloud/screen-autotest.git
