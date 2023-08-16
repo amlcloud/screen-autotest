@@ -12,9 +12,6 @@ describe('AML Login Tests', () => {
             // This block will only execute once
             cy.log('Executing beforeAll...');
             loginPage.navigateToAMLCloud()
-            // loginPage.clickOnSematicsPlaceHolder()
-            // loginPage.verifyLoginPageExist()
-            // loginPage.clickLoginanonymous()
             // Additional setup or initialization logic
             isInitialized = true;
         }
@@ -22,7 +19,6 @@ describe('AML Login Tests', () => {
 
     it('verify Login in Anonymous', () => {
         loginPage.verifyTitleOfAMlCloudPage("Sanctions Screener")
-        // loginPage.verifyAMlCloudURL('amlcloud')
         loginPage.clickOnSematicsPlaceHolder()
         loginPage.verifyLoginPageExist()
         loginPage.clickLoginanonymous()
