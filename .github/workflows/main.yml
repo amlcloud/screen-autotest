@@ -112,7 +112,9 @@ jobs:
           echo "Current Working Directory:"
           pwd
           ls -lrt
+          echo "screen auto test Working Directory:"
           cd screen-autotest
+          git branch
           ls -lrt
       - name: Print the all the files previous directory
         run: |
