@@ -12,6 +12,9 @@ describe('AML Login Tests', () => {
             // This block will only execute once
             cy.log('Executing beforeAll...');
             loginPage.navigateToAMLCloud()
+            loginPage.clickOnSematicsPlaceHolder()
+            loginPage.verifyLoginPageExist()
+            loginPage.clickLoginanonymous()
             // Additional setup or initialization logic
             isInitialized = true;
         }
