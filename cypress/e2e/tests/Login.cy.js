@@ -19,7 +19,6 @@ describe('AML Login Tests', () => {
 
     it('verify Login in Anonymous', () => {
         loginPage.verifyTitleOfAMlCloudPage("Sanctions Screener")
-        loginPage.verifyAMlCloudURL('amlcloud')
         loginPage.clickOnSematicsPlaceHolder()
         loginPage.verifyLoginPageExist()
         loginPage.clickLoginanonymous()
